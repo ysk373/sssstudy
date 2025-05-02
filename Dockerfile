@@ -3,8 +3,8 @@ WORKDIR /workspace
 
 RUN npm install -g pnpm
 RUN apt-get update && apt-get install -y git
-RUN git clone https://github.com/MicroWebStacks/astro-big-doc.git /astro-big-doc
-WORKDIR /astro-big-doc
+RUN git clone https://github.com/ysk373/sssstudy /main
+WORKDIR /main
 
 RUN pnpm install
 
