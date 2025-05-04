@@ -1,6 +1,8 @@
 ---
 import NotesDirective from "./NotesDirective.astro"
 import DetailsDirective from "./DetailsDirective.astro"
+import ContactFormContainerDirective from "./ContactFormContainerDirective.astro"
+
 export interface Props {
   name: string; //note, tip, caution, danger
   attributes: object;
@@ -13,6 +15,8 @@ if(["note","tip","caution","danger"].includes(className)){
   typeName = "notes"
 }else if(className == "details"){
   typeName = "details"
+}else if(className == "contactform"){
+  typeName = "contactform"
 }
 ---
 {(typeName == "notes")&&
@@ -24,6 +28,11 @@ if(["note","tip","caution","danger"].includes(className)){
   <DetailsDirective name={name} attributes={attributes}>
     <slot/>
   </DetailsDirective>
+}
+{(typeName == "contactform")&&
+  <ContactFormContainerDirective name={name} attributes={attributes}>
+    <slot/>
+  </ContactFormContainerDirective>
 }
 {(typeName == "other")&&
   <p>{className}</p>
