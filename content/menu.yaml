@@ -1,0 +1,26 @@
+- label: ホーム
+  link: /
+  autogenerate:
+    directory: home
+
+- label: ブログ
+  link: /blog
+  autogenerate:
+    directory: blog
+
+- label: カテゴリー
+  link: /examples
+  autogenerate:
+    directory: examples
+
+- label: プロフィール
+  link: /about
+  autogenerate:
+    directory: about
+
+- label: お問い合わせ
+  link: /contact
+
+- icon: github
+  align: right
+  link: https://github.com/MicroWebStacks/astro-big-doc

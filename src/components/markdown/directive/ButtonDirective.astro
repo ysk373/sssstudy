@@ -40,26 +40,43 @@ a{
   text-decoration: none;
   border-style: solid;
   border-width: 1px;
-  border-color: #729ef7;
-  padding: 10px;
-  border-radius: 5px;
-  margin:10px;
+  border-color: var(--front-blue);
+  background-color: rgba(138, 115, 85, 0.05);
+  padding: 0.75rem 1.25rem;
+  border-radius: 8px;
+  margin: 0.5rem 0;
   display: flex;
   align-items: center;
-  gap:7px;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  min-width: 150px;
 }
 a:hover{
-  box-shadow: 2px 2px 3px 3px #333;
+  background-color: var(--front-blue);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 .button.text{
-  color: #729ef7;
+  color: var(--content-color);
+  font-size: 0.95rem;
+}
+a:hover .button.text {
+  color: #fff;
 }
 .icon{
-  height:1rem;
+  height: 1rem;
+  display: flex;
+  align-items: center;
 }
 .icon :global(svg){
-  fill: #729ef7;
-  width:1rem;
-  height:1rem;
+  fill: var(--content-color);
+  width: 1rem;
+  height: 1rem;
+  transition: fill 0.3s ease;
+}
+a:hover .icon :global(svg) {
+  fill: #fff;
 }
 </style>

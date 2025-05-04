@@ -36,20 +36,34 @@ const entries = await Promise.all(promises);
 .title{
     width:100%;
     text-align:center;
-    
+    font-size: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    font-weight: 500;
 }
 .cards.container{
-    padding-top: 10px;
+    padding-top: 1.5rem;
     display:flex;
     flex-wrap:wrap;
-    gap:20px;
+    gap:1.75rem;
+    justify-content: center;
 }
 .card{
-    background-color: #222;
-    box-shadow: 2px 2px 3px 3px #333;
-    border-radius:10px;
-    width:15rem;
-    padding:10px;
+    background-color: var(--content-bg-color);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    width:18rem;
+    padding: 1.25rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(138, 115, 85, 0.3);
 }
 .card :global(.paragraph:has(>img)) {
     text-align: center;

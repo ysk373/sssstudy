@@ -1,18 +1,25 @@
 :root {
-    --header-bg-color: #3C3C3C;
-    --header-active-color: #454646;
-    --fixed-nav-bg-color: #333333;
-    --fixed-nav-hover-color: #545454;
-    --nav-bg-color: #252526;
-    --front-blue: #007ACC;
-    --content-color: #CCCCCC;
-    --content-bg-color: #1E1E1E;
-    --scroll-thumb-color: #464647;
-    --scroll-thumb-hover-color: #515151;
-    --article-anchor-color: #3794FF;
-    --menu-span-hover-color: #606060;
-    --menu-active-color: #37373D;
-    --menu-icon-hover-color: #4d99cc;
-    --menu-border-left-color: #888;
+    /* 基本カラー - ダークベースを維持 */
+    --header-bg-color: #2A2A2A;
+    --header-active-color: #3A3A3A;
+    --fixed-nav-bg-color: #252525;
+    --fixed-nav-hover-color: #3D3D3D;
+    --nav-bg-color: #1E1E1E;
+    
+    /* アクセントカラー - 2025トレンド */
+    --front-blue: #8B7355;
+    --content-color: #E0E0E0;
+    --content-bg-color: #121212;
+    
+    /* スクロールとUI要素 */
+    --scroll-thumb-color: #5A4634;
+    --scroll-thumb-hover-color: #6B5744;
+    --article-anchor-color: #A58D7F;
+    
+    /* メニュー関連 */
+    --menu-span-hover-color: #4A4A4A;
+    --menu-active-color: #2D2D2D;
+    --menu-icon-hover-color: #8B7355;
+    --menu-border-left-color: #A58D7F;
   }	
   

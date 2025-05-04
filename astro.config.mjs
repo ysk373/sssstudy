@@ -10,6 +10,10 @@ export default defineConfig({
   base: config.base,
   site: 'https://sssstudy.com',
   trailingSlash: 'ignore',
+  server: {
+    host: '0.0.0.0', // すべてのネットワークインターフェースでリッスン
+    port: 3500
+  },
   vite: {
     plugins: [yaml()]
   }

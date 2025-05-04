@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  blog:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3500:3500"  # Astro dev サーバー
+    volumes:
+      - ./content:/app/content
+    environment:
+      - HOST=0.0.0.0
+      - PORT=3500
+      - ENABLE_AUTH=false
+      - ENABLE_CORS=true
+      - PROTOCOL=http

@@ -60,7 +60,7 @@ let hasTags = Object.hasOwn(data,"tags") && (data.tags.length > 0)
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    padding: 10px;
+    padding: 0;
     height:100%;
 }
 .content{
@@ -70,54 +70,83 @@ let hasTags = Object.hasOwn(data,"tags") && (data.tags.length > 0)
     flex-direction: column;
 }
 .bottom{
-    margin-top: auto;
+    margin-top: 1.5rem;
     width:100%;
+    text-align: center;
 }
 .title{
     width:100%;
     text-align: center;
+    font-size: 1.5rem;
+    font-weight: 500;
+    margin-top: 0.5rem;
+    margin-bottom: 1rem;
+    line-height: 1.3;
 }
 .itemimage{
-    width:90%;
+    width:100%;
+    overflow: hidden;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio: 16 / 9;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 object{
     pointer-events: none;
     max-height: 100%;
     max-width: 100%;
+    transition: transform 0.3s ease;
 }
 img{
     pointer-events: none;
-    max-height: 100%;
-    max-width: 100%;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+.card:hover img, .card:hover object {
+    transform: scale(1.05);
 }
 ul{
     width:100%;
     margin: 0px;
-    margin-top: 10px;
+    margin-top: 1rem;
     padding: 0px;
 }
 li{
     list-style-type: none;
-    padding: 3px;
+    padding: 0.5rem 0;
     display: flex;
     align-items: center;
+    font-size: 0.95rem;
 }
 .check{
-    margin-right: 5px;
-    background-color: #555;
-    padding: 5px;
-    width:5px;
-    height:5px;
-    border-radius: 30%;
+    margin-right: 10px;
+    background-color: var(--front-blue);
+    padding: 0;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
 }
 .tags.container{
     display: flex;
-    gap:5px;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.75rem;
 }
 .tag{
-    background-color: #444;
-    padding: 5px;
-    border-radius: 5px;
-    color: #aaa;
+    background-color: rgba(138, 115, 85, 0.15);
+    padding: 0.35rem 0.75rem;
+    border-radius: 50px;
+    color: var(--content-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+.tag:hover {
+    background-color: rgba(138, 115, 85, 0.3);
 }
 </style>

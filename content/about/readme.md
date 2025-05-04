@@ -1,9 +1,31 @@
 ---
-title: About
+title: プロフィール
 order: 3
 ---
-Astro Big Doc is an Astro Theme for big documentation websites. Hierarchical pages menu from files structure, table of content, Markdown rendered as CMS with Astro components for panzoom, 3D, links, interactive tables and more.
 
-* repository https://github.com/MicroWebStacks/astro-big-doc
-* Theme in astro.build https://astro.build/themes/details/astro-big-doc/
+# プロフィール
+
+## このブログについて
+
+SSSブログは、ミニマルでプロフェッショナルなデザインを採用した個人ブログです。日々の考えや発見、専門知識を美しく整理された形でお届けします。
+
+2025年のデザイントレンドを取り入れたカラースキームと読みやすさを重視したレイアウトで、長時間の閲覧でも目に優しいインターフェースを提供します。
+
+## 運営者プロフィール
+
+**名前**: SSSS
+
+**興味**: 読書、旅行、デザイン
+
+**専門分野**: Webデザイン、ヴィジュアルデザイン
+
+**メッセージ**: シンプルで美しいものを作りくたいいつも思っています。このブログを通じて、美しさと機能性が調和したデザインの魅力をお伝えできれば幸いです。
+
+## 利用技術
+
+* Astroフレームワーク
+* カスタムCSS
+* レスポンシブデザイン
+
+※このブログは[Astro Big Docテーマ](https://github.com/MicroWebStacks/astro-big-doc)をカスタマイズして作成しています。
 
