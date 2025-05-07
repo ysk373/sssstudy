@@ -2,7 +2,16 @@
 ---
 
 <div class="contact-form">
-  <form>
+  <div class="form-notice">
+    <p>お問い合わせありがとうございます。初回送信時には、フォームのアクティベーションが必要です。ご登録いただいたメールアドレスに確認メールが送信されますので、メール内の指示に従ってアクティベーションを完了してください。</p>
+  </div>
+
+  <form action="https://formsubmit.co/ysk.minami@gmail.com" method="POST">
+    <!-- 送信先アドレスをYOUR_EMAIL_HEREに設定してください -->
+    <input type="hidden" name="_subject" value="SSSSブログからのお問い合わせ">
+    <input type="hidden" name="_next" value="https://sssstudy.com/thanks">
+    <input type="text" name="_honey" style="display:none">
+    
     <div class="form-group">
       <label for="name">お名前</label>
       <input type="text" id="name" name="name" required>
@@ -31,6 +40,20 @@
 .contact-form {
   max-width: 600px;
   margin: 2rem 0;
+}
+
+.form-notice {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  background-color: rgba(138, 115, 85, 0.1);
+  border-left: 4px solid var(--front-blue);
+  border-radius: 4px;
+}
+
+.form-notice p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .form-group {
