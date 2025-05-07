@@ -2,18 +2,39 @@
 import './colors.css';
 import Icon from "@/components/icon.astro"
 import { get_base_menu,get_active_appbar_menu } from './layout_utils.js';
+import { section_from_pathname } from '@/libs/assets.js';
 
 let base_menu = get_base_menu()
-const menu = get_active_appbar_menu(base_menu,Astro.url.pathname)
-const left_side  = menu.filter((item)=>(!Object.hasOwn(item,"align") || !(item.align=="right")))
+const menu = get_active_appbar_menu(base_menu, Astro.url.pathname)
+const left_side = menu.filter((item)=>(!Object.hasOwn(item,"align") || !(item.align=="right")))
 const right_side = menu.filter((item)=>(Object.hasOwn(item,"align") && (item.align=="right")))
 
+// 認証状態に依存しないパスベースのアクティブクラス計算
+function getActiveClass(item) {
+  const pathname = Astro.url.pathname;
+  const itemSection = section_from_pathname(item.link);
+  const currentSection = section_from_pathname(pathname);
+  
+  // 特定のパスに対する明示的な処理
+  if (pathname.startsWith('/examples') && item.label === 'Examples') {
+    return 'active';
+  } else if (pathname.startsWith('/admin/settings') && item.label === '管理設定') {
+    return 'active';
+  } else if (pathname.startsWith('/blog') && item.label === 'ブログ') {
+    return 'active';
+  } else if (itemSection === currentSection && !['Examples', '管理設定'].includes(item.label)) {
+    // 通常のセクションベースのマッチング（管理者メニュー項目を除く）
+    return 'active';
+  }
+  
+  return '';
+}
 ---
 <div class="navbar">
     <ul class="navbar-left">
         {left_side.map((item)=>(
         <li>
-            <a href={item.link} class={item.active_class}>
+            <a href={item.link} class={getActiveClass(item)} data-menu-id={item.label}>
                 {item.label}
                 {item.icon && <Icon filename={item.icon} />}
             </a>

@@ -1,186 +1,112 @@
-// 管理者メニューの表示/非表示を制御するスクリプト
+/**
+ * 管理者メニューの表示/非表示を制御するスクリプト
+ * このファイルは管理者認証時のメニュー項目の追加と表示のみを担当
+ * アクティブ状態の管理はサーバーサイドの AppBar.astro に委譲
+ */
 
 document.addEventListener('DOMContentLoaded', function() {
   // 認証状態の確認
   const isAuthenticated = sessionStorage.getItem('isAdminAuthenticated') === 'true';
   
   if (isAuthenticated) {
-    // 認証済みの場合、管理者メニューを表示
-    addAdminMenuItems();
+    // 認証済みの場合、管理者メニューを追加（既に存在しない場合のみ）
+    ensureAdminMenuItems();
     
-    // 管理者設定ページへのリンクも追加
-    addAdminSettingsLink();
-    
-    // 現在のページが管理者ページの場合、通常メニューのアクティブ状態をクリア
-    clearNormalMenuActiveState();
+    // フッターの管理リンクのスタイルを調整
+    styleAdminLink();
   }
-  
-  // フッターの管理リンクのスタイルを調整
-  styleAdminLink();
 });
 
-// 通常メニューのアクティブ状態をクリアする関数
-function clearNormalMenuActiveState() {
-  // 現在のページURLを取得
+// 管理者メニュー項目が存在するか確認し、なければ追加する関数
+function ensureAdminMenuItems() {
+  const menuList = document.querySelector('.navbar-left');
+  if (!menuList) return;
+  
+  // 現在のパスを取得
   const currentPath = window.location.pathname;
   
-  // Examplesページまたは管理設定ページの場合
-  if (currentPath.startsWith('/examples') || currentPath.startsWith('/admin')) {
-    // メニューのテキスト内容で特定してアクティブクラスを削除
-    const allMenuLinks = document.querySelectorAll('.navbar-left a');
-    allMenuLinks.forEach(link => {
-      // ブログとカテゴリーのメニュー項目のみをターゲットに
-      const text = link.textContent.trim();
-      if (text === 'ブログ' || text === 'カテゴリー') {
-        link.classList.remove('active');
-        // スタイルもリセット
-        link.style.backgroundColor = '';
-        link.style.borderBottom = '';
-      }
-    });
+  // 既存のメニュー項目をチェック
+  const existingMenuItems = {};
+  menuList.querySelectorAll('a').forEach(link => {
+    existingMenuItems[link.textContent.trim()] = true;
+  });
+  
+  // Examplesメニュー項目の追加（存在しない場合のみ）
+  if (!existingMenuItems['Examples']) {
+    addMenuItem(menuList, {
+      label: 'Examples',
+      link: '/examples',
+      isActive: currentPath.startsWith('/examples')
+    }, 2); // 挿入位置（0始まりで3番目）
+  }
+  
+  // 管理設定メニュー項目の追加（存在しない場合のみ）
+  if (!existingMenuItems['管理設定']) {
+    // Examplesの後に追加するため、Examplesの位置を特定
+    const examplesIndex = findMenuItemIndex(menuList, 'Examples');
+    const insertPosition = examplesIndex !== -1 ? examplesIndex + 1 : menuList.children.length;
     
-    // DOMが完全に更新されるよう少し遅延を追加
-    setTimeout(() => {
-      allMenuLinks.forEach(link => {
-        const text = link.textContent.trim();
-        if (text === 'ブログ' || text === 'カテゴリー') {
-          link.classList.remove('active');
-          link.style.backgroundColor = '';
-          link.style.borderBottom = '';
-        }
-      });
-    }, 50);
+    addMenuItem(menuList, {
+      label: '管理設定',
+      link: '/admin/settings',
+      isActive: currentPath.startsWith('/admin/settings')
+    }, insertPosition);
   }
 }
 
-function addAdminMenuItems() {
-  // メニューリストを取得
-  const menuList = document.querySelector('.navbar-left');
+/**
+ * メニューリストに新しい項目を追加する共通関数
+ * @param {HTMLElement} menuList - メニューリスト要素
+ * @param {Object} itemConfig - メニュー項目の設定
+ * @param {number} position - 挿入位置（任意）
+ */
+function addMenuItem(menuList, itemConfig, position = -1) {
+  // メニュー項目の作成
+  const menuItem = document.createElement('li');
+  menuItem.innerHTML = `
+    <a href="${itemConfig.link}" class="${itemConfig.isActive ? 'active' : ''}" data-menu-id="${itemConfig.label}">
+      ${itemConfig.label}
+    </a>
+  `;
   
-  if (menuList) {
-    // 現在のページURLを取得
-    const currentPath = window.location.pathname;
-    
-    // Examplesページかどうかを確認
-    const isExamplesPage = currentPath.startsWith('/examples');
-    
-    // 管理者メニュー項目の作成
-    const adminMenuItem = document.createElement('li');
-    adminMenuItem.innerHTML = `
-      <a href="/examples" class="${isExamplesPage ? 'active' : ''}">
-        Examples
-      </a>
-    `;
-    
-    // a要素にスタイルを適用（通常メニューと同じスタイルにするため）
-    const linkElement = adminMenuItem.querySelector('a');
-    if (linkElement) {
-      linkElement.style.float = 'left';
-      linkElement.style.fontSize = '17px';
-      linkElement.style.padding = '14px 16px';
-      linkElement.style.textAlign = 'center';
-      linkElement.style.color = 'var(--content-color)';
-      linkElement.style.textDecoration = 'none';
-      
-      // ホバー時の動作を追加
-      linkElement.addEventListener('mouseenter', function() {
-        this.style.backgroundColor = 'var(--header-active-color)';
-      });
-      
-      linkElement.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('active')) {
-          this.style.backgroundColor = '';
-        }
-      });
-      
-      // アクティブな場合のスタイルを適用
-      if (isExamplesPage) {
-        linkElement.style.backgroundColor = 'var(--header-active-color)';
-        linkElement.style.borderBottom = '3px solid rgb(88, 88, 88)';
-      }
-    }
-    
-    // メニューリストに挿入（先頭から3番目の位置に）
-    const menuItems = menuList.querySelectorAll('li');
-    if (menuItems.length >= 2) {
-      menuList.insertBefore(adminMenuItem, menuItems[2]);
-    } else {
-      menuList.appendChild(adminMenuItem);
-    }
+  // データ属性を追加して管理を容易にする
+  const linkElement = menuItem.querySelector('a');
+  if (!linkElement) return;
+  
+  // メニューリストへの挿入
+  if (position >= 0 && position < menuList.children.length) {
+    menuList.insertBefore(menuItem, menuList.children[position]);
+  } else {
+    menuList.appendChild(menuItem);
   }
 }
 
-function addAdminSettingsLink() {
-  // メニューリストを取得
-  const menuList = document.querySelector('.navbar-left');
-  
-  if (menuList) {
-    // 現在のページURLを取得
-    const currentPath = window.location.pathname;
-    
-    // 管理設定ページかどうかを確認
-    const isAdminSettingsPage = currentPath.startsWith('/admin/settings');
-    
-    // 管理者設定リンクの作成
-    const adminSettingsItem = document.createElement('li');
-    adminSettingsItem.innerHTML = `
-      <a href="/admin/settings" class="${isAdminSettingsPage ? 'active' : ''}">
-        管理設定
-      </a>
-    `;
-    
-    // a要素にスタイルを適用（通常メニューと同じスタイルにするため）
-    const linkElement = adminSettingsItem.querySelector('a');
-    if (linkElement) {
-      linkElement.style.float = 'left';
-      linkElement.style.fontSize = '17px';
-      linkElement.style.padding = '14px 16px';
-      linkElement.style.textAlign = 'center';
-      linkElement.style.color = 'var(--content-color)';
-      linkElement.style.textDecoration = 'none';
-      
-      // ホバー時の動作を追加
-      linkElement.addEventListener('mouseenter', function() {
-        this.style.backgroundColor = 'var(--header-active-color)';
-      });
-      
-      linkElement.addEventListener('mouseleave', function() {
-        if (!this.classList.contains('active')) {
-          this.style.backgroundColor = '';
-        }
-      });
-      
-      // アクティブな場合のスタイルを適用
-      if (isAdminSettingsPage) {
-        linkElement.style.backgroundColor = 'var(--header-active-color)';
-        linkElement.style.borderBottom = '3px solid rgb(88, 88, 88)';
-      }
-    }
-    
-    // Examplesリンクの後に挿入
-    // 管理者クラス名がなくなったので、リンク内容で検索
-    const links = menuList.querySelectorAll('a');
-    let examplesLink = null;
-    for (let i = 0; i < links.length; i++) {
-      if (links[i].textContent.trim() === 'Examples') {
-        examplesLink = links[i];
-        break;
-      }
-    }
-    
-    if (examplesLink) {
-      // 親要素にliとして取得
-      const examplesItem = examplesLink.closest('li');
-      if (examplesItem && examplesItem.nextSibling) {
-        menuList.insertBefore(adminSettingsItem, examplesItem.nextSibling);
-      } else {
-        menuList.appendChild(adminSettingsItem);
-      }
-    } else {
-      // Examplesリンクが見つからない場合は最後に追加
-      menuList.appendChild(adminSettingsItem);
+/**
+ * 指定されたラベルを持つメニュー項目のインデックスを取得
+ * @param {HTMLElement} menuList - メニューリスト要素
+ * @param {string} label - 検索するメニュー項目のラベル
+ * @returns {number} 見つかった位置、見つからない場合は-1
+ */
+function findMenuItemIndex(menuList, label) {
+  const items = menuList.querySelectorAll('li a');
+  for (let i = 0; i < items.length; i++) {
+    if (items[i].textContent.trim() === label) {
+      return i;
     }
   }
+  return -1;
+}
+
+/**
+ * フッターの管理者リンクのスタイルを調整する関数
+ * 認証状態に応じて表示を調整
+ */
+function styleAdminLink() {
+  const adminLink = document.querySelector('.admin-link');
+  if (!adminLink) return;
+  
+  // 認証済みの場合、より視認性を高める
+  adminLink.style.opacity = '0.3';
 }
 
 function styleAdminLink() {
