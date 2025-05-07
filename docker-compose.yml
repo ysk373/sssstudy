@@ -2,16 +2,22 @@ version: '3'
 
 services:
   blog:
+    container_name: sssstudy-container  # コンテナ名を固定
     build:
       context: .
       dockerfile: Dockerfile
     ports:
       - "3500:3500"  # Astro dev サーバー
+      - "3001:3001"  # その他のポート
     volumes:
-      - ./content:/app/content
+      - ./:/app  # ホストのファイルをコンテナにマウント（ホットリロード対応）
+      - /app/node_modules/  # node_modulesはマウントしない
+      - /app/.git/  # .gitディレクトリもマウントしない
     environment:
       - HOST=0.0.0.0
       - PORT=3500
       - ENABLE_AUTH=false
       - ENABLE_CORS=true
       - PROTOCOL=http
+    restart: unless-stopped  # コンテナを自動的に再起動
+    command: dev  # デフォルトでは開発モードで起動

@@ -26,11 +26,30 @@ function clearNormalMenuActiveState() {
   
   // Examplesページまたは管理設定ページの場合
   if (currentPath.startsWith('/examples') || currentPath.startsWith('/admin')) {
-    // すべての通常メニューのアクティブクラスを削除
+    // メニューのテキスト内容で特定してアクティブクラスを削除
     const allMenuLinks = document.querySelectorAll('.navbar-left a');
     allMenuLinks.forEach(link => {
-      link.classList.remove('active');
+      // ブログとカテゴリーのメニュー項目のみをターゲットに
+      const text = link.textContent.trim();
+      if (text === 'ブログ' || text === 'カテゴリー') {
+        link.classList.remove('active');
+        // スタイルもリセット
+        link.style.backgroundColor = '';
+        link.style.borderBottom = '';
+      }
     });
+    
+    // DOMが完全に更新されるよう少し遅延を追加
+    setTimeout(() => {
+      allMenuLinks.forEach(link => {
+        const text = link.textContent.trim();
+        if (text === 'ブログ' || text === 'カテゴリー') {
+          link.classList.remove('active');
+          link.style.backgroundColor = '';
+          link.style.borderBottom = '';
+        }
+      });
+    }, 50);
   }
 }
 

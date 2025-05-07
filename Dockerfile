@@ -11,7 +11,7 @@ COPY package.json pnpm-lock.yaml ./
 # 依存関係をインストール
 RUN pnpm install
 
-# 残りのファイルをコピー
+# 残りのファイルをコピー（.dockerignoreでnode_modulesなどは除外）
 COPY . .
 
 # Astroのテレメトリを無効化
@@ -20,6 +20,6 @@ RUN pnpm astro telemetry disable
 # ポートを公開
 EXPOSE 3500 3001
 
-# 起動コマンド
+# 起動コマンド（コマンドはdocker-composeから上書き可能）
 ENTRYPOINT ["pnpm", "run"]
 CMD ["dev"]
