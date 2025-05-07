@@ -2,6 +2,8 @@
 import NotesDirective from "./NotesDirective.astro"
 import DetailsDirective from "./DetailsDirective.astro"
 import ContactFormContainerDirective from "./ContactFormContainerDirective.astro"
+import AdminSettingsDirective from "./AdminSettingsDirective.astro"
+import AdminLoginDirective from "./AdminLoginDirective.astro"
 
 export interface Props {
   name: string; //note, tip, caution, danger
@@ -17,6 +19,10 @@ if(["note","tip","caution","danger"].includes(className)){
   typeName = "details"
 }else if(className == "contactform"){
   typeName = "contactform"
+}else if(className == "adminsettings"){
+  typeName = "adminsettings"
+}else if(className == "adminlogin"){
+  typeName = "adminlogin"
 }
 ---
 {(typeName == "notes")&&
@@ -33,6 +39,16 @@ if(["note","tip","caution","danger"].includes(className)){
   <ContactFormContainerDirective name={name} attributes={attributes}>
     <slot/>
   </ContactFormContainerDirective>
+}
+{(typeName == "adminsettings")&&
+  <AdminSettingsDirective name={name} attributes={attributes}>
+    <slot/>
+  </AdminSettingsDirective>
+}
+{(typeName == "adminlogin")&&
+  <AdminLoginDirective name={name} attributes={attributes}>
+    <slot/>
+  </AdminLoginDirective>
 }
 {(typeName == "other")&&
   <p>{className}</p>

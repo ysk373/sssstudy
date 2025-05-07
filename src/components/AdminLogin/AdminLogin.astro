@@ -1,0 +1,171 @@
+---
+---
+
+<div id="admin-login">
+  <div class="login-form">
+    <div class="form-group">
+      <label for="password">パスワード</label>
+      <input type="password" id="password" class="password-input">
+    </div>
+    <button id="login-button" class="login-button">ログイン</button>
+    <p id="login-message" class="login-message"></p>
+  </div>
+</div>
+
+<script>
+  // ページ読み込み時に実行
+  document.addEventListener('DOMContentLoaded', function() {
+    // すでに認証済みかチェック
+    const isAuthenticated = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+    
+    if (isAuthenticated) {
+      document.getElementById('login-message').textContent = '認証済みです。管理者メニューにアクセスできます。';
+      document.getElementById('login-message').classList.add('success');
+      showAdminMenu();
+    }
+    
+    // ログインボタンクリック時の処理
+    document.getElementById('login-button').addEventListener('click', function() {
+      const password = document.getElementById('password').value;
+      // シンプルな認証 (実際の運用では、このパスワードはより安全な方法で保管・検証すべきです)
+      const adminPassword = 'admin';
+      
+      if (password === adminPassword) {
+        // 認証成功
+        sessionStorage.setItem('isAdminAuthenticated', 'true');
+        document.getElementById('login-message').textContent = 'ログイン成功！管理者メニューにアクセスできます。';
+        document.getElementById('login-message').classList.add('success');
+        showAdminMenu();
+        
+        // ページをリロードして、ヘッダーに管理者メニューを表示
+        setTimeout(function() {
+          window.location.reload();
+        }, 1000);
+      } else {
+        // 認証失敗
+        document.getElementById('login-message').textContent = 'パスワードが正しくありません。';
+        document.getElementById('login-message').classList.add('error');
+      }
+    });
+  });
+  
+  // 管理者メニューを表示する関数
+  function showAdminMenu() {
+    // 管理者メニューのHTML作成
+    const adminMenuHTML = `
+      <div class="admin-menu">
+        <h2>管理者メニュー</h2>
+        <ul>
+          <li><a href="/examples">コンポーネント例（Examples）</a></li>
+          <li><a href="/admin/settings">サイト設定</a></li>
+        </ul>
+      </div>
+    `;
+    
+    // 管理者メニューの追加
+    const loginForm = document.querySelector('.login-form');
+    if (loginForm) {
+      // すでに追加されていないか確認
+      if (!document.querySelector('.admin-menu')) {
+        loginForm.insertAdjacentHTML('afterend', adminMenuHTML);
+      }
+    }
+  }
+</script>
+
+<style>
+  .login-form {
+    max-width: 400px;
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--content-bg-color);
+    border: 1px solid rgba(138, 115, 85, 0.2);
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .password-input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 0.75rem;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #222;
+    color: #e0e0e0;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  
+  .login-button {
+    background-color: var(--front-blue);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .login-button:hover {
+    opacity: 0.9;
+  }
+  
+  .login-message {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    border-radius: 4px;
+  }
+  
+  .login-message.success {
+    background-color: rgba(0, 128, 0, 0.1);
+    color: #4caf50;
+  }
+  
+  .login-message.error {
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #f44336;
+  }
+  
+  .admin-menu {
+    margin-top: 2rem;
+    padding: 1.5rem;
+    background-color: rgba(138, 115, 85, 0.1);
+    border-radius: 8px;
+  }
+  
+  .admin-menu h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .admin-menu ul {
+    margin: 0;
+    padding-left: 1.5rem;
+  }
+  
+  .admin-menu li {
+    margin-bottom: 0.5rem;
+  }
+  
+  .admin-menu a {
+    color: var(--article-anchor-color);
+    text-decoration: none;
+    transition: opacity 0.3s;
+  }
+  
+  .admin-menu a:hover {
+    opacity: 0.8;
+  }
+</style>

@@ -1,0 +1,153 @@
+---
+---
+
+<div id="admin-settings">
+  <div class="settings-container">
+    <h2>サイト設定</h2>
+    <p>ここでサイトの各種設定を行えます。</p>
+    
+    <div id="auth-check-message"></div>
+    
+    <div id="settings-content" style="display: none;">
+      <div class="settings-section">
+        <h3>コンテンツ管理</h3>
+        <ul>
+          <li><a href="/examples">コンポーネント例（Examples）</a></li>
+          <li><a href="/">ホームページ（デフォルト内容）</a></li>
+        </ul>
+      </div>
+      
+      <div class="settings-section">
+        <h3>サイト情報</h3>
+        <div class="form-group">
+          <label for="site-title">サイトタイトル</label>
+          <input type="text" id="site-title" value="SSSSブログ">
+        </div>
+        <div class="form-group">
+          <label for="site-description">サイト説明</label>
+          <textarea id="site-description" rows="3">ミニマルでプロフェッショナルなブログデザインのモデルケース</textarea>
+        </div>
+        <button id="save-settings" class="save-button">設定を保存</button>
+        <p id="save-message"></p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // 認証状態の確認
+    const isAuthenticated = sessionStorage.getItem('isAdminAuthenticated') === 'true';
+    const authCheckMessage = document.getElementById('auth-check-message');
+    const settingsContent = document.getElementById('settings-content');
+    
+    if (isAuthenticated) {
+      // 認証済みの場合、設定コンテンツを表示
+      authCheckMessage.innerHTML = '<div class="auth-success">認証済み - 管理者権限でアクセスしています</div>';
+      settingsContent.style.display = 'block';
+      
+      // 設定保存ボタンの処理
+      document.getElementById('save-settings').addEventListener('click', function() {
+        const siteTitle = document.getElementById('site-title').value;
+        const siteDescription = document.getElementById('site-description').value;
+        
+        // localStorage に設定を保存（実際の運用ではサーバーに保存する）
+        localStorage.setItem('siteTitle', siteTitle);
+        localStorage.setItem('siteDescription', siteDescription);
+        
+        document.getElementById('save-message').textContent = '設定を保存しました';
+        document.getElementById('save-message').classList.add('success');
+        
+        setTimeout(function() {
+          document.getElementById('save-message').textContent = '';
+          document.getElementById('save-message').classList.remove('success');
+        }, 3000);
+      });
+      
+    } else {
+      // 未認証の場合、警告を表示
+      authCheckMessage.innerHTML = '<div class="auth-error">アクセス権限がありません。<a href="/admin/login">管理者ログイン</a>から認証してください。</div>';
+    }
+  });
+</script>
+
+<style>
+  .settings-container {
+    max-width: 800px;
+    margin: 2rem 0;
+  }
+  
+  .auth-success {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background-color: rgba(0, 128, 0, 0.1);
+    color: #4caf50;
+    border-radius: 4px;
+  }
+  
+  .auth-error {
+    margin-bottom: 1.5rem;
+    padding: 0.75rem 1rem;
+    background-color: rgba(255, 0, 0, 0.1);
+    color: #f44336;
+    border-radius: 4px;
+  }
+  
+  .auth-error a {
+    color: #f44336;
+    font-weight: bold;
+  }
+  
+  .settings-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--content-bg-color);
+    border: 1px solid rgba(138, 115, 85, 0.2);
+    border-radius: 8px;
+  }
+  
+  .form-group {
+    margin-bottom: 1.5rem;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+  }
+  
+  input, textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #555;
+    border-radius: 4px;
+    background-color: #222;
+    color: #e0e0e0;
+    font-family: inherit;
+    font-size: 16px;
+  }
+  
+  .save-button {
+    background-color: var(--front-blue);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .save-button:hover {
+    opacity: 0.9;
+  }
+  
+  #save-message {
+    margin-top: 1rem;
+  }
+  
+  #save-message.success {
+    color: #4caf50;
+  }
+</style>

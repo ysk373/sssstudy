@@ -8,11 +8,6 @@
   autogenerate:
     directory: blog
 
-- label: カテゴリー
-  link: /examples
-  autogenerate:
-    directory: examples
-
 - label: プロフィール
   link: /about
   autogenerate:

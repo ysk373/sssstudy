@@ -1,0 +1,264 @@
+---
+import Layout from "@/layout/Layout.astro"
+import { getDocuments } from 'content-structure'
+
+const title = "コンポーネント例"
+
+// 固定のコンポーネント一覧と説明
+const componentExamples = [
+  {
+    id: "code-block",
+    title: "コードブロック",
+    description: "さまざまな言語のシンタックスハイライト付きコードブロックを表示します。",
+    link: "/examples/code-block"
+  },
+  {
+    id: "diagrams",
+    title: "コード図表",
+    description: "コードから自動生成されるダイアグラムと図表を表示します。",
+    link: "/examples/diagrams"
+  },
+  {
+    id: "panzoom",
+    title: "SVGパンズーム",
+    description: "拡大・縮小・移動可能なSVG画像を表示します。",
+    link: "/examples/panzoom"
+  },
+  {
+    id: "svg-meta",
+    title: "SVGメタデータ",
+    description: "メタデータを含むSVG画像を表示します。",
+    link: "/examples/svg-meta"
+  },
+  {
+    id: "abs_assets",
+    title: "絶対アセット",
+    description: "絶対パスを使用したアセットの参照方法を示します。",
+    link: "/examples/abs_assets"
+  },
+  {
+    id: "code-diagram-meta",
+    title: "コード図表メタ",
+    description: "メタデータを含むコード図表の表示方法を示します。",
+    link: "/examples/code-diagram-meta"
+  },
+  {
+    id: "table-data",
+    title: "テーブルデータ",
+    description: "データテーブルの表示とフォーマット方法を示します。",
+    link: "/examples/table-data"
+  },
+  {
+    id: "table-xlsx",
+    title: "Excel表",
+    description: "Excelファイルからデータを表示する方法を示します。",
+    link: "/examples/table-xlsx"
+  },
+  {
+    id: "details",
+    title: "詳細表示",
+    description: "折りたたみ可能な詳細情報の表示方法を示します。",
+    link: "/examples/details"
+  },
+  {
+    id: "gallery",
+    title: "ギャラリー",
+    description: "PhotoSwipe対応の画像ギャラリーを表示します。",
+    link: "/examples/gallery"
+  },
+  {
+    id: "gallery_pz",
+    title: "ギャラリーパンズーム",
+    description: "パンズーム機能付きの画像ギャラリーを表示します。",
+    link: "/examples/gallery_pz"
+  },
+  {
+    id: "swiper",
+    title: "スワイパー",
+    description: "スワイプ操作に対応した画像カルーセルを表示します。",
+    link: "/examples/swiper"
+  },
+  {
+    id: "notes",
+    title: "ノート",
+    description: "注釈やヒントなどの特別な表示ブロックを示します。",
+    link: "/examples/notes"
+  },
+  {
+    id: "cards-body",
+    title: "カードボディ",
+    description: "コンテンツを含むカードの表示方法を示します。",
+    link: "/examples/cards-body"
+  },
+  {
+    id: "cards-meta",
+    title: "カードメタ",
+    description: "メタデータを含むカードの表示方法を示します。",
+    link: "/examples/cards-meta"
+  }
+];
+
+// カテゴリに分ける
+const categories = {
+  "表示要素": ["code-block", "diagrams", "panzoom", "svg-meta", "abs_assets", "code-diagram-meta"],
+  "データ表示": ["table-data", "table-xlsx", "details"],
+  "メディア": ["gallery", "gallery_pz", "swiper"],
+  "コンテンツ": ["notes", "cards-body", "cards-meta"]
+};
+---
+
+<Layout title={title} headings={[]} >
+  <div class="examples-container">
+    <h1 class="examples-title">コンポーネント例</h1>
+    <p class="examples-description">
+      このセクションでは、ブログで利用可能な各種コンポーネントのサンプルを紹介しています。
+      実際の使用例と実装方法を確認できます。
+    </p>
+
+    {Object.keys(categories).map(category => (
+      <div class="examples-section">
+        <h2 class="category-title">{category}</h2>
+        <div class="examples-grid">
+          {componentExamples
+            .filter(example => categories[category].includes(example.id))
+            .map(example => (
+              <a href={example.link} class="example-card">
+                <h3 class="example-title">{example.title}</h3>
+                <p class="example-description">{example.description}</p>
+                <div class="example-icon">
+                  <span>詳細を見る</span>
+                </div>
+              </a>
+            ))
+          }
+        </div>
+      </div>
+    ))}
+
+    <div class="advanced-examples">
+      <h2>高度な例</h2>
+      <ul class="advanced-list">
+        <li><a href="/examples/short-reference">リファレンスリンク</a> - ページ内の短い参照リンクを作成する方法</li>
+        <li><a href="/examples/page-reference">ページリファレンス</a> - 異なるページへの参照リンクを作成する方法</li>
+        <li><a href="/examples/presentation">プレゼンテーション</a> - 複数ページにわたるプレゼンテーションの作成方法</li>
+      </ul>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .examples-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+
+  .examples-title {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--content-color);
+  }
+
+  .examples-description {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 3rem;
+    max-width: 800px;
+  }
+
+  .examples-section {
+    margin-bottom: 3rem;
+  }
+
+  .category-title {
+    font-size: 1.75rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(138, 115, 85, 0.2);
+    color: var(--front-blue);
+  }
+
+  .examples-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    grid-auto-rows: minmax(200px, auto);
+  }
+
+  .example-card {
+    background-color: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: transform 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: var(--content-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  .example-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: rgba(138, 115, 85, 0.3);
+    background-color: rgba(28, 28, 28, 0.8);
+  }
+
+  .example-title {
+    font-size: 1.35rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--content-color);
+  }
+
+  .example-description {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    flex-grow: 1;
+  }
+
+  .example-icon {
+    margin-top: 1.5rem;
+    text-align: right;
+    font-size: 0.9rem;
+    color: var(--article-anchor-color);
+  }
+
+  .advanced-examples {
+    margin-top: 4rem;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: rgba(138, 115, 85, 0.05);
+  }
+
+  .advanced-examples h2 {
+    margin-top: 0;
+    color: var(--front-blue);
+  }
+
+  .advanced-list {
+    padding-left: 1.5rem;
+  }
+
+  .advanced-list li {
+    margin-bottom: 0.75rem;
+  }
+
+  .advanced-list a {
+    color: var(--article-anchor-color);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .advanced-list a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .examples-grid {
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    }
+  }
+</style>
