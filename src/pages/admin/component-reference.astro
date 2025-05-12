@@ -1,0 +1,168 @@
+---
+import Layout from "@/layout/Layout.astro"
+
+const title = "コンポーネントリファレンス"
+const description = "Astroコンポーネントの使用例と実装方法"
+const headings = [
+  { depth: 2, text: "リファレンス概要", slug: "リファレンス概要" },
+  { depth: 2, text: "コンポーネント一覧", slug: "コンポーネント一覧" },
+  { depth: 2, text: "GitHub参照", slug: "github参照" }
+]
+---
+
+<Layout title={title} headings={headings}>
+  <div class="reference-container">
+    <h1>コンポーネントリファレンス</h1>
+    
+    <h2 id="リファレンス概要">リファレンス概要</h2>
+    <p>このページでは、SSSSブログで使用可能な各種コンポーネントへの参照リンクを提供しています。
+    詳細な使用例や実装方法については、各コンポーネントの参照ページをご覧ください。</p>
+    
+    <div class="info-box">
+      <p><strong>Astro Big Doc</strong> テーマではMarkdownをCMSとして使用し、Astroコンポーネントでレンダリングします。
+      このブログは、ミニマルでプロフェッショナルなデザインを追求しています。</p>
+    </div>
+    
+    <h2 id="コンポーネント一覧">コンポーネント一覧</h2>
+    
+    <div class="component-grid">
+      <a href="/examples/code-block" class="component-card">
+        <h3>コードブロック</h3>
+        <p>構文ハイライトとコピー機能を持つコードブロックの実装</p>
+      </a>
+      
+      <a href="/examples/panzoom" class="component-card">
+        <h3>画像とパンズーム</h3>
+        <p>拡大・縮小・移動可能な画像表示機能</p>
+      </a>
+      
+      <a href="/examples/gallery" class="component-card">
+        <h3>ギャラリー</h3>
+        <p>複数画像をグリッドレイアウトで表示</p>
+      </a>
+      
+      <a href="/examples/cards-meta" class="component-card">
+        <h3>カード</h3>
+        <p>YAMLからコンテンツカードを生成</p>
+      </a>
+      
+      <a href="/examples/table-data" class="component-card">
+        <h3>テーブル</h3>
+        <p>フィルタリングとページネーション機能付きテーブル</p>
+      </a>
+      
+      <a href="/examples/notes" class="component-card">
+        <h3>ノート・アラート</h3>
+        <p>注意喚起のためのスタイル付きブロック</p>
+      </a>
+      
+      <a href="/examples/details" class="component-card">
+        <h3>詳細表示</h3>
+        <p>折りたたみ可能なコンテンツブロック</p>
+      </a>
+      
+      <a href="/examples/diagrams" class="component-card">
+        <h3>ダイアグラム</h3>
+        <p>コードからの自動図表生成</p>
+      </a>
+    </div>
+    
+    <h2 id="github参照">GitHub参照</h2>
+    <p>このブログは <a href="https://github.com/MicroWebStacks/astro-big-doc" target="_blank" rel="noopener">Astro Big Doc</a> テーマを基に開発されています。
+    テーマの完全なドキュメントは、GitHub リポジトリの <a href="https://github.com/MicroWebStacks/astro-big-doc/blob/main/README.md" target="_blank" rel="noopener">README.md</a> ファイルで閲覧できます。</p>
+    
+    <div class="note">
+      <h3>管理者メモ</h3>
+      <p>このリファレンスページは、元のトップページ（README.md）の内容を整理して作成されました。
+      コンポーネントの詳細な使用方法については、Examples セクションの各ページを参照してください。</p>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .reference-container {
+    max-width: 900px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+  
+  h1, h2, h3, h4 {
+    color: var(--front-blue);
+  }
+  
+  h2 {
+    margin-top: 2rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid rgba(138, 115, 85, 0.2);
+  }
+  
+  .info-box {
+    background-color: rgba(138, 115, 85, 0.05);
+    border-left: 4px solid var(--front-blue);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+  }
+  
+  .component-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+  }
+  
+  .component-card {
+    background-color: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    border-radius: 8px;
+    padding: 1.5rem;
+    text-decoration: none;
+    color: var(--content-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .component-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-color: rgba(138, 115, 85, 0.3);
+    background-color: rgba(28, 28, 28, 0.8);
+  }
+  
+  .component-card h3 {
+    margin-top: 0;
+    color: var(--front-blue);
+    margin-bottom: 0.75rem;
+  }
+  
+  .component-card p {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+  
+  .note {
+    background-color: #444551;
+    border-left: 4px solid #c5c5e8;
+    padding: 1rem;
+    margin: 2rem 0;
+    border-radius: 8px;
+  }
+  
+  .note h3 {
+    margin-top: 0;
+    color: #c5c5e8;
+  }
+  
+  .note p {
+    margin-bottom: 0;
+  }
+  
+  a {
+    color: var(--article-anchor-color);
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+</style>

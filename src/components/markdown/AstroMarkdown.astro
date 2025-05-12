@@ -23,7 +23,10 @@ const handled_types = [ "root","heading","table","paragraph",
                         "containerDirective"
                     ]
 const other_type = !handled_types.includes(node.type)
-data.dirpath = dirname(data.path)
+
+// エラー修正: pathが存在しない場合のフォールバック
+data.dirpath = data.path ? dirname(data.path) : '';
+
 let paragraph_style = "paragraph"
 if(node.type == "paragraph"){
     if(text_only_children(node)){

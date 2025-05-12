@@ -1,0 +1,13 @@
+---
+import Layout from "@/layout/Layout.astro"
+import AdminSettings from "@/components/AdminSettings/AdminSettings.astro"
+
+const title = "管理者設定"
+const headings = []
+---
+<Layout title={title} headings={headings} >
+  <h1>サイト設定</h1>
+  <p>このページは管理者のみアクセスできます。サイトの各種設定を行えます。</p>
+  
+  <AdminSettings />
+</Layout>

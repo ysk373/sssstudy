@@ -9,26 +9,74 @@
     <div id="auth-check-message"></div>
     
     <div id="settings-content" style="display: none;">
-      <div class="settings-section">
-        <h3>コンテンツ管理</h3>
-        <ul>
-          <li><a href="/examples">コンポーネント例（Examples）</a></li>
-          <li><a href="/">ホームページ（デフォルト内容）</a></li>
-        </ul>
+      <div class="settings-tabs">
+        <button class="tab-button active" data-tab="site-info">サイト情報</button>
+        <button class="tab-button" data-tab="content-management">コンテンツ管理</button>
+        <button class="tab-button" data-tab="references">リファレンス</button>
       </div>
       
-      <div class="settings-section">
-        <h3>サイト情報</h3>
-        <div class="form-group">
-          <label for="site-title">サイトタイトル</label>
-          <input type="text" id="site-title" value="SSSSブログ">
+      <!-- サイト情報タブ -->
+      <div class="tab-content active" id="site-info-tab">
+        <div class="settings-section">
+          <h3>サイト情報</h3>
+          <div class="form-group">
+            <label for="site-title">サイトタイトル</label>
+            <input type="text" id="site-title" value="SSSSブログ">
+          </div>
+          <div class="form-group">
+            <label for="site-description">サイト説明</label>
+            <textarea id="site-description" rows="3">ミニマルでプロフェッショナルなブログデザインのモデルケース</textarea>
+          </div>
+          <button id="save-settings" class="save-button">設定を保存</button>
+          <p id="save-message"></p>
         </div>
-        <div class="form-group">
-          <label for="site-description">サイト説明</label>
-          <textarea id="site-description" rows="3">ミニマルでプロフェッショナルなブログデザインのモデルケース</textarea>
+      </div>
+      
+      <!-- コンテンツ管理タブ -->
+      <div class="tab-content" id="content-management-tab">
+        <div class="settings-section">
+          <h3>コンテンツ管理</h3>
+          <div class="admin-card-grid">
+            <a href="/examples" class="admin-card">
+              <h4>コンポーネント例</h4>
+              <p>各種コンポーネントの実装例と使用方法</p>
+            </a>
+            <a href="/" class="admin-card">
+              <h4>ホームページ</h4>
+              <p>トップページの編集と更新</p>
+            </a>
+            <a href="/blog" class="admin-card">
+              <h4>ブログ記事</h4>
+              <p>記事の一覧と管理</p>
+            </a>
+            <a href="/about" class="admin-card">
+              <h4>プロフィール</h4>
+              <p>プロフィールページの編集</p>
+            </a>
+          </div>
         </div>
-        <button id="save-settings" class="save-button">設定を保存</button>
-        <p id="save-message"></p>
+      </div>
+      
+      <!-- リファレンスタブ -->
+      <div class="tab-content" id="references-tab">
+        <div class="settings-section">
+          <h3>リファレンス</h3>
+          <p>サイト構築やコンテンツ作成の参考資料</p>
+          <ul class="reference-list">
+            <li>
+              <a href="/admin/component-reference" class="reference-link">
+                <span class="reference-title">コンポーネントリファレンス</span>
+                <span class="reference-desc">各種コンポーネントの詳細な使用方法と実装例</span>
+              </a>
+            </li>
+            <li>
+              <a href="https://docs.astro.build/" target="_blank" class="reference-link">
+                <span class="reference-title">Astro公式ドキュメント</span>
+                <span class="reference-desc">Astroフレームワークの公式ガイド</span>
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -45,6 +93,23 @@
       // 認証済みの場合、設定コンテンツを表示
       authCheckMessage.innerHTML = '<div class="auth-success">認証済み - 管理者権限でアクセスしています</div>';
       settingsContent.style.display = 'block';
+      
+      // タブ切り替え機能
+      const tabButtons = document.querySelectorAll('.tab-button');
+      const tabContents = document.querySelectorAll('.tab-content');
+      
+      tabButtons.forEach(button => {
+        button.addEventListener('click', function() {
+          // アクティブなタブをリセット
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // クリックされたタブをアクティブに
+          this.classList.add('active');
+          const tabId = this.getAttribute('data-tab');
+          document.getElementById(`${tabId}-tab`).classList.add('active');
+        });
+      });
       
       // 設定保存ボタンの処理
       document.getElementById('save-settings').addEventListener('click', function() {
@@ -98,6 +163,40 @@
     font-weight: bold;
   }
   
+  .settings-tabs {
+    display: flex;
+    margin-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(138, 115, 85, 0.2);
+  }
+  
+  .tab-button {
+    background: none;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    font-size: 1rem;
+    color: var(--content-color);
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s;
+  }
+  
+  .tab-button:hover {
+    background-color: rgba(138, 115, 85, 0.05);
+  }
+  
+  .tab-button.active {
+    color: var(--front-blue);
+    border-bottom: 3px solid var(--front-blue);
+  }
+  
+  .tab-content {
+    display: none;
+  }
+  
+  .tab-content.active {
+    display: block;
+  }
+  
   .settings-section {
     margin-bottom: 2rem;
     padding: 1.5rem;
@@ -149,5 +248,77 @@
   
   #save-message.success {
     color: #4caf50;
+  }
+  
+  .admin-card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+  }
+  
+  .admin-card {
+    background-color: rgba(28, 28, 28, 0.8);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    border-radius: 8px;
+    padding: 1rem;
+    text-decoration: none;
+    color: var(--content-color);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .admin-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    border-color: rgba(138, 115, 85, 0.3);
+  }
+  
+  .admin-card h4 {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    color: var(--front-blue);
+  }
+  
+  .admin-card p {
+    margin: 0;
+    font-size: 0.9rem;
+  }
+  
+  .reference-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .reference-list li {
+    margin-bottom: 1rem;
+  }
+  
+  .reference-link {
+    display: block;
+    padding: 1rem;
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    border-radius: 8px;
+    background-color: rgba(28, 28, 28, 0.8);
+    text-decoration: none;
+    transition: all 0.3s;
+  }
+  
+  .reference-link:hover {
+    background-color: rgba(138, 115, 85, 0.05);
+    transform: translateX(5px);
+    border-color: rgba(138, 115, 85, 0.3);
+  }
+  
+  .reference-title {
+    display: block;
+    font-weight: 500;
+    color: var(--front-blue);
+    margin-bottom: 0.25rem;
+  }
+  
+  .reference-desc {
+    display: block;
+    font-size: 0.9rem;
+    color: var(--content-color);
   }
 </style>
