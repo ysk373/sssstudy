@@ -1,0 +1,159 @@
+---
+---
+
+<div class="container">
+  <h3 class="diagram-title">パーミュテーション問題の図解</h3>
+  
+  <div class="diagram">
+    <svg width="700" height="350">
+      {/* 元の信号（音源） */}
+      <rect x="50" y="50" width="600" height="80" fill="none" stroke="var(--front-blue)" strokeWidth="1" />
+      <text x="350" y="40" textAnchor="middle" fontWeight="bold" fill="var(--content-color)">元の信号（音源）の周波数成分</text>
+      
+      <rect x="100" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="120" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="150" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="170" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="200" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="220" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="250" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="270" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="300" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="320" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="350" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="370" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="400" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="420" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="450" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="470" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="500" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="520" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      <rect x="550" y="60" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="570" y="75" textAnchor="middle" fill="white" fontSize="10">音源1</text>
+      
+      <rect x="100" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="120" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="150" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="170" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="200" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="220" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="250" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="270" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="300" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="320" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="350" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="370" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="400" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="420" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="450" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="470" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="500" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="520" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      <rect x="550" y="95" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="570" y="110" textAnchor="middle" fill="white" fontSize="10">音源2</text>
+      
+      <text x="70" y="75" textAnchor="middle" fontSize="10" fill="var(--content-color)">f=1</text>
+      <text x="70" y="110" textAnchor="middle" fontSize="10" fill="var(--content-color)">f=1</text>
+      
+      {/* 各周波数ビンでのICA後の結果（順序がバラバラ） */}
+      <rect x="50" y="170" width="600" height="80" fill="none" stroke="var(--front-blue)" strokeWidth="1" />
+      <text x="350" y="160" textAnchor="middle" fontWeight="bold" fill="var(--content-color)">ICA適用後の出力信号（パーミュテーション問題）</text>
+      
+      <rect x="100" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="120" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="150" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="170" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="200" y="215" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="220" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="250" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="270" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="300" y="215" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="320" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="350" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="370" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="400" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="420" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="450" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="470" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="500" y="215" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="520" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="550" y="180" width="40" height="25" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="570" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      
+      <rect x="100" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="120" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="150" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="170" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="200" y="180" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="220" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="250" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="270" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="300" y="180" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="320" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="350" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="370" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="400" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="420" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="450" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="470" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      <rect x="500" y="180" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="520" y="195" textAnchor="middle" fill="white" fontSize="10">成分1</text>
+      <rect x="550" y="215" width="40" height="25" fill="rgba(0, 0, 255, 0.6)" />
+      <text x="570" y="230" textAnchor="middle" fill="white" fontSize="10">成分2</text>
+      
+      <text x="70" y="195" textAnchor="middle" fontSize="10" fill="var(--content-color)">f=1</text>
+      <text x="70" y="230" textAnchor="middle" fontSize="10" fill="var(--content-color)">f=1</text>
+      
+      {/* 問題の説明 */}
+      <rect x="50" y="270" width="600" height="60" fill="none" stroke="var(--front-blue)" strokeWidth="1" />
+      <text x="60" y="290" textAnchor="start" fontWeight="bold" fill="var(--content-color)">パーミュテーション問題:</text>
+      <text x="60" y="310" textAnchor="start" fontSize="12" fill="var(--content-color)">各周波数ビンでのICAは独立に行われるため、分離結果の順序が周波数間で一致しない場合があります。</text>
+      <text x="60" y="325" textAnchor="start" fontSize="12" fill="var(--content-color)">上図では、f=3とf=5の結果の順序が他の周波数と異なっており、音源1の成分が「成分2」として出力されています。</text>
+    </svg>
+  </div>
+  
+  <div class="diagram-caption">
+    各周波数ビンで独立にICAを適用すると、分離結果の順序が周波数間で一致しないことがあります。
+    これがパーミュテーション問題であり、IVAはこの問題を周波数間の依存性を考慮することで解決します。
+  </div>
+</div>
+
+<style>
+  .container {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    border-radius: 8px;
+  }
+  
+  .diagram-title {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--content-color);
+    text-align: center;
+  }
+  
+  .diagram {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .diagram-caption {
+    font-size: 0.9rem;
+    color: var(--content-color);
+    opacity: 0.8;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 800px) {
+    .diagram svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>

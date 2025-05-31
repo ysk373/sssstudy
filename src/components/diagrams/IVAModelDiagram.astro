@@ -1,0 +1,112 @@
+---
+---
+
+<div class="container">
+  <h3 class="diagram-title">IVAのモデル図</h3>
+  
+  <div class="diagram">
+    <svg width="800" height="240">
+      {/* 時間-周波数領域の表現 */}
+      <rect x="70" y="40" width="200" height="160" fill="none" stroke="var(--front-blue)" strokeWidth="1" />
+      <text x="170" y="25" textAnchor="middle" fill="var(--content-color)">混合信号 X</text>
+      
+      {/* 周波数軸 */}
+      <line x1="70" y1="40" x2="70" y2="200" stroke="var(--content-color)" strokeWidth="1" />
+      <text x="20" y="120" textAnchor="middle" transform="rotate(-90, 20, 120)" fill="var(--content-color)">周波数</text>
+      
+      {/* 時間軸 */}
+      <line x1="70" y1="200" x2="270" y2="200" stroke="var(--content-color)" strokeWidth="1" />
+      <text x="170" y="220" textAnchor="middle" fill="var(--content-color)">時間</text>
+      
+      {/* 周波数帯の例示 */}
+      <rect x="70" y="60" width="200" height="20" fill="rgba(255, 0, 0, 0.2)" />
+      <text x="55" y="70" textAnchor="end" fontSize="10" fill="var(--content-color)">f=1</text>
+      
+      <rect x="70" y="100" width="200" height="20" fill="rgba(0, 255, 0, 0.2)" />
+      <text x="55" y="110" textAnchor="end" fontSize="10" fill="var(--content-color)">f=2</text>
+      
+      <rect x="70" y="140" width="200" height="20" fill="rgba(0, 0, 255, 0.2)" />
+      <text x="55" y="150" textAnchor="end" fontSize="10" fill="var(--content-color)">f=3</text>
+      
+      <rect x="70" y="180" width="200" height="20" fill="rgba(255, 0, 255, 0.2)" />
+      <text x="55" y="190" textAnchor="end" fontSize="10" fill="var(--content-color)">f=4</text>
+      
+      {/* 変換の矢印 */}
+      <line x1="290" y1="120" x2="400" y2="120" stroke="var(--content-color)" strokeWidth="2" />
+      <polygon points="400,120 390,115 390,125" fill="var(--content-color)" />
+      <text x="345" y="110" textAnchor="middle" fontSize="12" fill="var(--content-color)">IVA</text>
+      
+      {/* 分離信号 */}
+      <rect x="450" y="40" width="200" height="160" fill="none" stroke="var(--front-blue)" strokeWidth="1" />
+      <text x="550" y="25" textAnchor="middle" fill="var(--content-color)">分離信号 S</text>
+      
+      {/* 周波数軸 */}
+      <line x1="450" y1="40" x2="450" y2="200" stroke="var(--content-color)" strokeWidth="1" />
+      <text x="420" y="120" textAnchor="middle" transform="rotate(-90, 420, 120)" fill="var(--content-color)">周波数</text>
+      
+      {/* 時間軸 */}
+      <line x1="450" y1="200" x2="650" y2="200" stroke="var(--content-color)" strokeWidth="1" />
+      <text x="550" y="220" textAnchor="middle" fill="var(--content-color)">時間</text>
+      
+      {/* 音源1の各周波数成分 */}
+      <rect x="450" y="60" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <rect x="450" y="100" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <rect x="450" y="140" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <rect x="450" y="180" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="550" y="75" textAnchor="middle" fill="white">音源1 (f=1)</text>
+      <text x="550" y="115" textAnchor="middle" fill="white">音源1 (f=2)</text>
+      <text x="550" y="155" textAnchor="middle" fill="white">音源1 (f=3)</text>
+      <text x="550" y="195" textAnchor="middle" fill="white">音源1 (f=4)</text>
+
+      {/* ベクトル表現の説明 */}
+      <line x1="670" y1="60" x2="670" y2="200" stroke="var(--article-anchor-color)" strokeWidth="2" strokeDasharray="5,3" />
+      <text x="690" y="130" textAnchor="start" fontSize="10" fill="var(--content-color)">ベクトルとして</text>
+      <text x="690" y="145" textAnchor="start" fontSize="10" fill="var(--content-color)">一括処理</text>
+    </svg>
+  </div>
+  
+  <div class="diagram-caption">
+    IVAでは、同じ音源の各周波数成分をベクトルとしてまとめて扱い、周波数間の依存性を考慮します。
+    これにより、パーミュテーション問題を解決します。
+  </div>
+</div>
+
+<style>
+  .container {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: rgba(18, 18, 18, 0.7);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    border-radius: 8px;
+  }
+  
+  .diagram-title {
+    font-size: 1.3rem;
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: var(--content-color);
+    text-align: center;
+  }
+  
+  .diagram {
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .diagram-caption {
+    font-size: 0.9rem;
+    color: var(--content-color);
+    opacity: 0.8;
+    text-align: center;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 800px) {
+    .diagram svg {
+      width: 100%;
+      height: auto;
+    }
+  }
+</style>
