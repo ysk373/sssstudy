@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
     ensureAdminMenuItems();
     
     // フッターの管理リンクのスタイルを調整
-    styleAdminLink();
+    adjustAdminLinkStyle();
   }
 });
 
@@ -101,24 +101,14 @@ function findMenuItemIndex(menuList, label) {
  * フッターの管理者リンクのスタイルを調整する関数
  * 認証状態に応じて表示を調整
  */
-function styleAdminLink() {
+function adjustAdminLinkStyle() {
   const adminLink = document.querySelector('.admin-link');
   if (!adminLink) return;
   
   // 認証済みの場合、より視認性を高める
-  adminLink.style.opacity = '0.3';
-}
-
-function styleAdminLink() {
-  // フッターの管理リンク
-  const adminLink = document.querySelector('.admin-link');
+  const isAuthenticated = sessionStorage.getItem('isAdminAuthenticated') === 'true';
   
-  if (adminLink) {
-    // 認証済みの場合、少し目立つようにする
-    const isAuthenticated = sessionStorage.getItem('isAdminAuthenticated') === 'true';
-    
-    if (isAuthenticated) {
-      adminLink.style.opacity = '0.3';
-    }
+  if (isAuthenticated) {
+    adminLink.style.opacity = '0.3';
   }
 }

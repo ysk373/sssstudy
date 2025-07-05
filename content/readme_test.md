@@ -18,6 +18,24 @@ description: ミニマルでプロフェッショナルなブログデザイン�
   width_rem: 18
 ```
 
+## 動作テスト - Cards（既存）
+
+```yaml cards
+- uid: blog/minimal-design
+  width_rem: 15
+```
+
+## 動作テスト - Sections（新規）
+
+```yaml sections
+- name: "ブログ記事"
+  description: "技術とデザインに関する知見を共有"
+  link: "/blog"
+  icon: "📝"
+  count: "8"
+  label: "記事"
+```
+
 ## 主要セクション
 
 ```yaml sections

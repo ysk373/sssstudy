@@ -3,6 +3,8 @@ title: SSSSブログ
 description: ミニマルでプロフェッショナルなブログデザインのモデルケース
 ---
 
+import SectionCards from '@/components/markdown/cards/SectionCards.astro'
+
 # 30代一般人の備忘録
 
 株式、旅行、技術など幅広いコンテンツを備忘録として残していきます。
@@ -20,8 +22,7 @@ description: ミニマルでプロフェッショナルなブログデザイン�
 
 ## 主要セクション
 
-```yaml sections
-- name: "ブログ記事"
+<SectionCards code={`- name: "ブログ記事"
   description: "技術とデザインに関する知見を共有"
   link: "/blog"
   icon: "📝"
@@ -33,5 +34,4 @@ description: ミニマルでプロフェッショナルなブログデザイン�
   link: "/stories"
   icon: "📚"
   count: "2"
-  label: "作品"
-```
+  label: "作品"`} dirpath="" />

@@ -1,0 +1,225 @@
+---
+import yaml from 'js-yaml'
+
+export interface Props {
+  code: string;
+}
+
+const { code } = Astro.props as Props;
+const sections = yaml.load(code)
+---
+
+<div class="section-cards-container">
+  <h2 class="section-title">主要セクション</h2>
+  <div class="section-cards-grid">
+    {sections.map((section) => (
+      <a href={section.link} class="section-card">
+        <div class="card-header">
+          <div class="card-icon">{section.icon}</div>
+          <h3 class="card-title">{section.name}</h3>
+        </div>
+        <div class="card-content">
+          <p class="card-description">{section.description}</p>
+          <div class="card-stats">
+            <span class="stats-number">{section.count}</span>
+            <span class="stats-label">{section.label}</span>
+          </div>
+        </div>
+        <div class="card-footer">
+          <span class="read-more">詳細を見る →</span>
+        </div>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .section-cards-container {
+    margin: 3rem 0;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    color: var(--content-color);
+    font-weight: 600;
+  }
+  
+  .section-cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+  
+  .section-card {
+    background: linear-gradient(135deg, 
+      rgba(139, 115, 85, 0.1) 0%,    /* モカムース系 */
+      rgba(69, 90, 120, 0.08) 100%   /* ホライゾングリーン系 */
+    );
+    border: 1px solid rgba(139, 115, 85, 0.2);
+    border-radius: 16px;
+    padding: 2rem;
+    text-decoration: none;
+    color: var(--content-color);
+    display: flex;
+    flex-direction: column;
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    backdrop-filter: blur(10px);
+  }
+  
+  .section-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(135deg, 
+      rgba(139, 115, 85, 0.05) 0%,
+      rgba(69, 90, 120, 0.03) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+  }
+  
+  .section-card:hover::before {
+    opacity: 1;
+  }
+  
+  .section-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.15),
+      0 0 0 1px rgba(139, 115, 85, 0.3);
+    border-color: rgba(139, 115, 85, 0.4);
+  }
+  
+  .card-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .card-icon {
+    font-size: 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(139, 115, 85, 0.15);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+  }
+  
+  .section-card:hover .card-icon {
+    background: rgba(139, 115, 85, 0.25);
+    transform: scale(1.1);
+  }
+  
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin: 0;
+    color: var(--content-color);
+  }
+  
+  .card-content {
+    flex-grow: 1;
+    position: relative;
+    z-index: 2;
+  }
+  
+  .card-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: rgba(224, 224, 224, 0.85);
+    margin-bottom: 1.5rem;
+  }
+  
+  .card-stats {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .stats-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #8B7355; /* モカムース */
+  }
+  
+  .stats-label {
+    font-size: 0.9rem;
+    color: rgba(224, 224, 224, 0.7);
+    font-weight: 500;
+  }
+  
+  .card-footer {
+    position: relative;
+    z-index: 2;
+  }
+  
+  .read-more {
+    font-size: 0.95rem;
+    color: #59758C; /* ホライゾングリーン系 */
+    font-weight: 500;
+    opacity: 0.8;
+    transition: all 0.3s ease;
+  }
+  
+  .section-card:hover .read-more {
+    opacity: 1;
+    color: #6B8AA0;
+    transform: translateX(4px);
+  }
+  
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .section-cards-grid {
+      grid-template-columns: 1fr;
+      gap: 1.5rem;
+      padding: 0 1rem;
+    }
+    
+    .section-card {
+      height: 260px;
+      padding: 1.5rem;
+    }
+    
+    .card-icon {
+      width: 50px;
+      height: 50px;
+      font-size: 2rem;
+    }
+    
+    .card-title {
+      font-size: 1.3rem;
+    }
+    
+    .stats-number {
+      font-size: 1.8rem;
+    }
+  }
+  
+  /* ダークモード対応の強化 */
+  @media (prefers-color-scheme: dark) {
+    .section-card {
+      background: linear-gradient(135deg, 
+        rgba(139, 115, 85, 0.12) 0%,
+        rgba(69, 90, 120, 0.1) 100%
+      );
+    }
+  }
+</style>

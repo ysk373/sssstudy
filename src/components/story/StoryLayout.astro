@@ -1,0 +1,284 @@
+---
+export interface Props {
+  frontmatter?: {
+    title?: string;
+    description?: string;
+    genre?: string[];
+    tags?: string[];
+    reading_time?: string;
+    published_date?: string;
+    series?: string;
+    series_order?: number;
+  };
+}
+
+const { frontmatter } = Astro.props;
+---
+
+<article class="story-layout">
+  {frontmatter && (
+    <header class="story-header">
+      <div class="story-meta">
+        {frontmatter.genre && (
+          <div class="genre-tags">
+            {frontmatter.genre.map(g => (
+              <span class="genre-tag">{g}</span>
+            ))}
+          </div>
+        )}
+        {frontmatter.reading_time && (
+          <span class="reading-time">📖 {frontmatter.reading_time}</span>
+        )}
+        {frontmatter.published_date && (
+          <span class="publish-date">📅 {frontmatter.published_date}</span>
+        )}
+      </div>
+      
+      {frontmatter.title && (
+        <h1 class="story-title">{frontmatter.title}</h1>
+      )}
+      
+      {frontmatter.description && (
+        <p class="story-description">{frontmatter.description}</p>
+      )}
+      
+      {frontmatter.series && (
+        <div class="series-info">
+          <span class="series-label">シリーズ:</span>
+          <span class="series-name">{frontmatter.series}</span>
+          {frontmatter.series_order && (
+            <span class="series-order">第{frontmatter.series_order}話</span>
+          )}
+        </div>
+      )}
+    </header>
+  )}
+  
+  <main class="story-content">
+    <slot />
+  </main>
+  
+  <footer class="story-footer">
+    <div class="story-navigation">
+      <a href="/stories" class="back-to-list">← 小説一覧に戻る</a>
+    </div>
+    
+    {frontmatter?.tags && (
+      <div class="story-tags">
+        <span class="tags-label">タグ:</span>
+        {frontmatter.tags.map(tag => (
+          <span class="story-tag">{tag}</span>
+        ))}
+      </div>
+    )}
+  </footer>
+</article>
+
+<style>
+  .story-layout {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    background-color: var(--story-reading-bg);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .story-header {
+    border-bottom: 2px solid var(--story-border-color);
+    padding-bottom: 2rem;
+    margin-bottom: 3rem;
+  }
+  
+  .story-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    align-items: center;
+  }
+  
+  .genre-tags {
+    display: flex;
+    gap: 0.5rem;
+  }
+  
+  .genre-tag {
+    background-color: var(--story-accent-color);
+    color: white;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 500;
+  }
+  
+  .reading-time, .publish-date {
+    color: var(--story-highlight-color);
+    font-size: 0.9rem;
+    background-color: rgba(107, 91, 115, 0.1);
+    padding: 0.4rem 0.8rem;
+    border-radius: 6px;
+  }
+  
+  .story-title {
+    font-size: 2.5rem;
+    color: var(--story-text-color);
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    text-align: center;
+    font-weight: 600;
+  }
+  
+  .story-description {
+    font-size: 1.1rem;
+    color: var(--story-highlight-color);
+    text-align: center;
+    margin: 0;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  
+  .series-info {
+    text-align: center;
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background-color: rgba(107, 91, 115, 0.1);
+    border-radius: 8px;
+  }
+  
+  .series-label {
+    color: var(--story-highlight-color);
+    font-weight: 500;
+    margin-right: 0.5rem;
+  }
+  
+  .series-name {
+    color: var(--story-text-color);
+    font-weight: 600;
+    margin-right: 1rem;
+  }
+  
+  .series-order {
+    color: var(--story-accent-color);
+    font-weight: 500;
+  }
+  
+  .story-content {
+    color: var(--story-text-color);
+    line-height: 1.8;
+    font-size: 1.1rem;
+  }
+  
+  /* 小説コンテンツ内の見出しスタイル */
+  .story-content :global(h2) {
+    color: var(--story-chapter-color);
+    font-size: 1.5rem;
+    margin: 2.5rem 0 1.5rem 0;
+    text-align: center;
+    border-bottom: 1px solid var(--story-border-color);
+    padding-bottom: 0.5rem;
+  }
+  
+  .story-content :global(h3) {
+    color: var(--story-highlight-color);
+    font-size: 1.2rem;
+    margin: 2rem 0 1rem 0;
+  }
+  
+  /* 段落間隔の調整 */
+  .story-content :global(p) {
+    margin-bottom: 1.5rem;
+    text-indent: 1em;
+  }
+  
+  /* コードブロックのスタイル */
+  .story-content :global(pre) {
+    background-color: #1a1a1a;
+    border: 1px solid var(--story-border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    overflow-x: auto;
+  }
+  
+  /* 区切り線のスタイル */
+  .story-content :global(hr) {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--story-border-color), transparent);
+    margin: 3rem 0;
+  }
+  
+  .story-footer {
+    border-top: 2px solid var(--story-border-color);
+    padding-top: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .story-navigation {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .back-to-list {
+    display: inline-block;
+    color: var(--story-accent-color);
+    text-decoration: none;
+    padding: 0.8rem 1.5rem;
+    border: 2px solid var(--story-accent-color);
+    border-radius: 8px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+  
+  .back-to-list:hover {
+    background-color: var(--story-accent-color);
+    color: white;
+    transform: translateY(-2px);
+  }
+  
+  .story-tags {
+    text-align: center;
+  }
+  
+  .tags-label {
+    color: var(--story-highlight-color);
+    font-weight: 500;
+    margin-right: 1rem;
+  }
+  
+  .story-tag {
+    display: inline-block;
+    background-color: rgba(139, 125, 107, 0.2);
+    color: var(--story-highlight-color);
+    padding: 0.4rem 0.8rem;
+    margin: 0.2rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    border: 1px solid var(--story-border-color);
+  }
+  
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .story-layout {
+      padding: 1.5rem;
+      margin: 1rem;
+    }
+    
+    .story-title {
+      font-size: 2rem;
+    }
+    
+    .story-meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+    }
+    
+    .story-content {
+      font-size: 1rem;
+    }
+  }
+</style>

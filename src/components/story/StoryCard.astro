@@ -1,0 +1,212 @@
+---
+export interface Props {
+  title: string;
+  description: string;
+  genre?: string[];
+  reading_time?: string;
+  published_date?: string;
+  url: string;
+  image?: string;
+}
+
+const { title, description, genre, reading_time, published_date, url, image } = Astro.props;
+---
+
+<article class="story-card">
+  <a href={url} class="story-link">
+    {image && (
+      <div class="story-image">
+        <img src={image} alt={title} />
+      </div>
+    )}
+    
+    <div class="story-card-content">
+      <header class="story-card-header">
+        {genre && (
+          <div class="genre-badges">
+            {genre.slice(0, 2).map(g => (
+              <span class="genre-badge">{g}</span>
+            ))}
+          </div>
+        )}
+        
+        <h3 class="story-card-title">{title}</h3>
+        <p class="story-card-description">{description}</p>
+      </header>
+      
+      <footer class="story-card-footer">
+        <div class="story-meta">
+          {reading_time && (
+            <span class="meta-item">
+              <span class="meta-icon">📖</span>
+              {reading_time}
+            </span>
+          )}
+          {published_date && (
+            <span class="meta-item">
+              <span class="meta-icon">📅</span>
+              {published_date}
+            </span>
+          )}
+        </div>
+        
+        <div class="read-more">
+          読む →
+        </div>
+      </footer>
+    </div>
+  </a>
+</article>
+
+<style>
+  .story-card {
+    background-color: var(--story-bg-color);
+    border: 1px solid var(--story-border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    height: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  }
+  
+  .story-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: var(--story-accent-color);
+  }
+  
+  .story-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .story-image {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    background-color: var(--story-reading-bg);
+  }
+  
+  .story-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  
+  .story-card:hover .story-image img {
+    transform: scale(1.05);
+  }
+  
+  .story-card-content {
+    padding: 1.5rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .story-card-header {
+    margin-bottom: 1rem;
+  }
+  
+  .genre-badges {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .genre-badge {
+    background-color: var(--story-accent-color);
+    color: white;
+    padding: 0.25rem 0.6rem;
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .story-card-title {
+    color: var(--story-text-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.8rem 0;
+    line-height: 1.3;
+  }
+  
+  .story-card-description {
+    color: var(--story-highlight-color);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  
+  .story-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: auto;
+  }
+  
+  .story-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+  }
+  
+  .meta-item {
+    color: var(--story-highlight-color);
+    font-size: 0.85rem;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .meta-icon {
+    font-size: 0.8rem;
+  }
+  
+  .read-more {
+    color: var(--story-accent-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border: 1px solid var(--story-accent-color);
+    border-radius: 6px;
+    transition: all 0.3s ease;
+  }
+  
+  .story-card:hover .read-more {
+    background-color: var(--story-accent-color);
+    color: white;
+  }
+  
+  /* レスポンシブ対応 */
+  @media (max-width: 768px) {
+    .story-card-content {
+      padding: 1rem;
+    }
+    
+    .story-card-title {
+      font-size: 1.1rem;
+    }
+    
+    .story-card-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+    
+    .read-more {
+      align-self: flex-end;
+    }
+  }
+</style>

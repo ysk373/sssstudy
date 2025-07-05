@@ -8,6 +8,11 @@
   autogenerate:
     directory: blog
 
+- label: 短編小説
+  link: /stories
+  autogenerate:
+    directory: stories
+
 - label: プロフィール
   link: /about
   autogenerate:
