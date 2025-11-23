@@ -1,5 +1,6 @@
 ---
 title: ウェブサイトのタイポグラフィ改善術
+slug: typography-tips
 description: 読みやすく美しいタイポグラフィのための7つのヒント
 tags: [タイポグラフィ, ウェブデザイン, 読みやすさ]
 image: images/typography.webp

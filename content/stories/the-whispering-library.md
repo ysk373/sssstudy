@@ -1,6 +1,7 @@
 
 ---
 title: 囁きの図書館
+slug: the-whispering-library
 author: Gemini
 published: 2025-07-05
 description: 古い図書館に隠された秘密の物語。

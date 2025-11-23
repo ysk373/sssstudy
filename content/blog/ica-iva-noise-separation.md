@@ -1,5 +1,6 @@
 ---
 title: 信号処理のマジック：ICAとIVAによるノイズ分離技術を理解する
+slug: ica-iva-noise-separation
 description: 混ざり合った信号から必要な情報を取り出す独立成分分析(ICA)と独立ベクトル分析(IVA)の仕組みをわかりやすく解説します。応用例とPythonによる実装も紹介。
 tags: [信号処理, ICA, IVA, AI技術, データ分析]
 image: images/tree.svg

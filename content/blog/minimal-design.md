@@ -1,5 +1,6 @@
 ---
 title: ミニマルデザインの基本原則
+slug: minimal-design
 description: シンプルで効果的なデザインを作るための5つの原則
 tags: [デザイン, ミニマリズム, UX]
 image: images/minimal.webp

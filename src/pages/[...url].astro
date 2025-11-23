@@ -12,7 +12,10 @@ console.log("Entry object:", entry)
 
 export async function getStaticPaths(){
 	const documents = await getDocuments({format:"markdown"})
-	const pages = documents.map((entry)=>({params:{url:entry.url}}))
+	// Filter out empty URLs (handled by index.astro)
+	const pages = documents
+		.filter((entry) => entry.url !== "")
+		.map((entry)=>({params:{url:entry.url}}))
 	return pages
 }
 const headings = (Object.hasOwn(entry.data,"toc")&&entry.data.toc == false)?[]:entry.data.headings

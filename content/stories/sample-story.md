@@ -1,5 +1,6 @@
 ---
 title: "デジタルの夢"
+slug: sample-story
 description: "プログラマーが見つけた不思議なコードの物語"
 genre: ["SF", "ミステリー"]
 tags: ["プログラミング", "AI", "近未来"]
