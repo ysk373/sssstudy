@@ -6,8 +6,9 @@ import {remove_base} from '@/libs/assets.js'
 
 let {url} = Astro.params;
 url = remove_base(url)
-console.log(`in [...path] > path = ${url}`)
-const entry = await getEntry({url:url})
+console.log(`in [...url] > url = ${url}`)
+const entry = await getEntry({url: url});
+console.log("Entry object:", entry)
 
 export async function getStaticPaths(){
 	const documents = await getDocuments({format:"markdown"})

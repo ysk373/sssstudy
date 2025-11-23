@@ -21,10 +21,10 @@ async function get_section_menu(section,raw_menu){
             {
                 label:       entry.title,
                 path:       entry.path,
-                url:        entry.url,
+                url:        entry.path,
                 url_type:   entry.url_type,
                 level:      entry.level,
-                link:(dir != ".")?`${config.base}/${entry.url}`:`${config.base}/${section}/${entry.url}`,
+                link: `${config.base}/${entry.path.replace(/\.md$/, '').replace(/\/index$/, '')}`,
                 format: entry.format,
                 order: Object.hasOwn(entry,"order")?entry.order:100
             }

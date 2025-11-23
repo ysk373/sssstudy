@@ -28,27 +28,27 @@ description: Astroコンポーネントの使用例と実装方法
 画像はパンズーム機能付きのモーダルビューで表示できるコンポーネントに包まれています。
 
 ```markdown
-![astro markdown render](./home/astro-markdown-render-small.png)
+![astro markdown render](../home/astro-markdown-render-small.png)
 ```
 
 上記のコードは次の画像を生成します：
 
-![astro markdown render](./home/astro-markdown-render-small.png)
+![astro markdown render](../home/astro-markdown-render-small.png)
 
 ### 高度な画像ディレクティブ
 より多くのオプションを提供するために、image ディレクティブを使用することで、マークダウンから追加の引数を渡すことができます。
 
 ```markdown
-:image[]{src=./home/astro-markdown-render-small.png alt="Astro Markdown Render" height=200 center}
+:image[]{src=../home/astro-markdown-render-small.png alt="Astro Markdown Render" height=200 center}
 ```
 
 これにより、高さが調整された画像が生成されます。widthまたはheightのいずれかを指定しても、アスペクト比は保持されます。また、画像を中央に配置することも可能です。
 
-:image[]{src=./home/astro-markdown-render-small.png alt="Astro Markdown Render" height=200 center}
+:image[]{src=../home/astro-markdown-render-small.png alt="Astro Markdown Render" height=200 center}
 
 ### SVG画像
 
-![Tree](./home/tree.svg)
+![Tree](../home/tree.svg)
 
 ## ギャラリー
 
@@ -112,24 +112,24 @@ YAMLコードブロックリストからカードを作成することも可能�
 .glbファイルへのリンクを挿入するだけで表示できます：
 
 ```markdown
-[Astronaut](./home/Astronaut.glb)
+[Astronaut](../home/Astronaut.glb)
 ```
 
 これにより、次の3Dモデルが生成されます：
 
-[Astronaut](./home/Astronaut.glb)
+[Astronaut](../home/Astronaut.glb)
 
 ### コードからの3Dモデル表示
 コード言語として`yaml`とコードメタデータとして`glb`を使用した次のコードで表示できます：
 
-![Code](./home/code.png)
+![Code](../home/code.png)
 
 これにより、提供されたファイルを使用して次の3Dモデルが生成されます：
 * poster：ページの高速ロードのために、最初に画像のみをロードします。
 * environment-image：照明効果用の画像
 
 ```yaml glb
-src: ./home/Lantern.glb
+src: ../home/Lantern.glb
 title: Lantern
 poster: ./home/Lantern.webp
 environment-image: ./home/spruit_sunrise_1k_HDR.hdr
@@ -180,12 +180,12 @@ environment-image: ./home/spruit_sunrise_1k_HDR.hdr
 xlsx形式のテーブルも作成可能です。`.xlsx`拡張子のリンク：
 
 ```markdown
-[Table1](./home/Table1.xlsx)
+[Table1](../home/Table1.xlsx)
 ```
 
 により、このデータテーブルが生成されます：
 
-[Table1](./home/Table1.xlsx)
+[Table1](../home/Table1.xlsx)
 
 ## ノート
 

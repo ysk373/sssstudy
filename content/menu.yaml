@@ -9,7 +9,7 @@
     directory: blog
 
 - label: 短編小説
-  link: /stories
+  link: /stories/index
   autogenerate:
     directory: stories
 

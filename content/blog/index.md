@@ -8,7 +8,7 @@ description: SSSSブログの記事一覧ページ
 最新の記事から読んでみましょう。
 
 ```yaml cards
-- uid: blog/minimal-design
+- uid: /blog/minimal-design
   width_rem: 20
 - uid: blog/typography-tips
   width_rem: 20
