@@ -1,0 +1,90 @@
+---
+import {getDocuments} from 'content-structure'
+import CardMeta from './CardsMeta.astro'
+import yaml from 'js-yaml'
+
+export interface Props {
+  code: string;
+}
+
+const { code } = Astro.props as Props;
+
+// yamlコードをパース
+const config = yaml.load(code);
+const {
+  content_type,
+  width_rem = 20,
+  exclude_index = true,
+  sort_by = 'published',
+  order = 'desc'
+} = config;
+
+// content_typeでフィルタリング（例: 'blog', 'stories'）
+let entries = await getDocuments({ content_type });
+
+// index.mdを除外
+if (exclude_index) {
+    entries = entries.filter(entry => entry.slug !== 'index');
+}
+
+// ソート処理
+if (sort_by) {
+    entries.sort((a, b) => {
+        const aValue = a.data?.[sort_by] || a[sort_by];
+        const bValue = b.data?.[sort_by] || b[sort_by];
+
+        if (aValue === undefined || bValue === undefined) return 0;
+
+        let comparison = 0;
+        if (aValue < bValue) comparison = -1;
+        if (aValue > bValue) comparison = 1;
+
+        return order === 'desc' ? -comparison : comparison;
+    });
+}
+
+// 各エントリーにディレクトリパスを追加
+const entriesWithDirpath = entries.map(entry => ({
+    ...entry,
+    dirpath: entry.path ? entry.path.split('/').slice(0, -1).join('/') : ''
+}));
+---
+<div class="cards container">
+    {
+        entriesWithDirpath.map((entry) => (
+            <div class="card" style={`width:${width_rem}rem`}>
+                <CardMeta data={entry} dirpath={entry.dirpath} />
+            </div>
+        ))
+    }
+</div>
+
+<style>
+.cards.container{
+    padding-top: 1.5rem;
+    display:flex;
+    flex-wrap:wrap;
+    gap:1.75rem;
+    justify-content: center;
+}
+.card{
+    background-color: var(--content-bg-color);
+    border: 1px solid rgba(138, 115, 85, 0.15);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 12px;
+    width:18rem;
+    padding: 1.25rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 20px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(138, 115, 85, 0.3);
+}
+.card :global(.paragraph:has(>img)) {
+    text-align: center;
+}
+</style>

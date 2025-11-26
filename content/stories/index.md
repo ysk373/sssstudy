@@ -8,9 +8,10 @@ description: 様々なジャンルの短編小説の世界へようこそ
 
 心躍る物語の世界へどうぞ。
 
-```yaml cards
-- uid: stories.the-whispering-library
-  width_rem: 20
-- uid: stories.sample-story
-  width_rem: 20
+```yaml auto-cards
+content_type: stories
+width_rem: 20
+exclude_index: true
+sort_by: title
+order: asc
 ```
