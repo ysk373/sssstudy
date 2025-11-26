@@ -5,6 +5,12 @@ slug: the-whispering-library
 author: Gemini
 published: 2025-07-05
 description: 古い図書館に隠された秘密の物語。
+tags: [ミステリー, ファンタジー, 歴史]
+image: images/library.webp
+features:
+  - 古代文明の秘密を巡る冒険
+  - 暗号解読のスリリングな展開
+  - 知識の守護者となる物語
 ---
 
 薄暗い路地の奥に、忘れ去られたように佇む古い図書館があった。その名は「囁きの図書館」。埃を被った窓ガラスは、内部の秘密を固く守っているかのようだった。

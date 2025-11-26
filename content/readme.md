@@ -10,11 +10,11 @@ description: ミニマルでプロフェッショナルなブログデザイン�
 ## 最新記事
 
 ```yaml cards
-- uid: blog/minimal-design
+- uid: blog.minimal-design
   width_rem: 18
-- uid: blog/typography-tips
+- uid: blog.typography-tips
   width_rem: 18
-- uid: blog/color-psychology
+- uid: blog.color-psychology
   width_rem: 18
 ```
 
@@ -23,14 +23,14 @@ description: ミニマルでプロフェッショナルなブログデザイン�
 ```yaml sections
 - name: "ブログ記事"
   description: "技術とデザインに関する知見を共有"
-  link: "/blog"
+  link: "/blog/index"
   icon: "📝"
   count: "8"
   label: "記事"
 
 - name: "短編小説"
   description: "技術と創作の融合、新たなストーリーの世界"
-  link: "/stories"
+  link: "/stories/index"
   icon: "📚"
   count: "2"
   label: "作品"

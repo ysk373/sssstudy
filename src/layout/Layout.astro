@@ -20,9 +20,11 @@ const toc_menu_items = process_toc_list(headings)
 const pages_menu_items = await get_generated_section_menu(Astro.url.pathname)
 const section = section_from_pathname(Astro.url.pathname)
 const menu_hash = get_menu_hash()
-const left_menu_open = (pages_menu_items.length > 0)
+// Hide left menu on index pages (blog/index, stories/index)
+const isIndexPage = Astro.url.pathname.endsWith('/index')
+const left_menu_open = (pages_menu_items.length > 0) && !isIndexPage
 
-console.log(`Layout> sectiom = '${section}'`)
+console.log(`Layout> section = '${section}', pathname = '${Astro.url.pathname}', isIndexPage = ${isIndexPage}, left_menu_open = ${left_menu_open}`)
 ---
 <html lang="ja">
 	<head>
@@ -38,7 +40,7 @@ console.log(`Layout> sectiom = '${section}'`)
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
 	</head>
 	<body >
-		<div id="fixed-left" class="fixed-nav active" />
+		<div id="fixed-left" class={`fixed-nav ${left_menu_open ? 'active' : ''}`} />
 		<div class="appbar-nav_content-footer">
 			<header>
 				<AppBar/>
@@ -52,7 +54,7 @@ console.log(`Layout> sectiom = '${section}'`)
 						</Cache>
 					}
 				</div>
-				<div id="resize-left" class="nav-resize active"/>
+				<div id="resize-left" class={`nav-resize ${left_menu_open ? 'active' : ''}`}/>
 				<article class="content scroll">
 					<div id="mobile-nav">
 						{config.client_menu?

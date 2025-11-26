@@ -1,10 +1,16 @@
 ---
-title: 短編小説
+title: 短編小説一覧
 slug: index
-description: ここでは、様々なジャンルの短編小説を公開しています。
+description: 様々なジャンルの短編小説の世界へようこそ
 ---
 
-## 短編小説一覧
+# 短編小説一覧
 
-- [囁きの図書館](/stories/the-whispering-library)
-- [サンプルストーリー](/stories/sample-story)
+心躍る物語の世界へどうぞ。
+
+```yaml cards
+- uid: stories.the-whispering-library
+  width_rem: 20
+- uid: stories.sample-story
+  width_rem: 20
+```

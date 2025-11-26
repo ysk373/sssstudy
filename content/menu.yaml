@@ -4,7 +4,7 @@
     directory: home
 
 - label: ブログ
-  link: /blog
+  link: /blog/index
   autogenerate:
     directory: blog
 

@@ -59,9 +59,20 @@ function expand_toggle_save(section_name,href){
 }
 
 function set_open_state(section_name){
-    const left_open = menu.sections_open[section_name]
-    console.log(`left_open = ${left_open}`)
     const menu_nav = document.querySelector("nav.pages_menu")
+    // Check if server-side forced a specific open state
+    const forceOpen = menu_nav.getAttribute("data-force-open")
+    let left_open
+    if (forceOpen === "false") {
+        left_open = false
+        console.log(`Force closed by server`)
+    } else if (forceOpen === "true") {
+        left_open = true
+        console.log(`Force open by server`)
+    } else {
+        left_open = menu.sections_open[section_name]
+        console.log(`left_open = ${left_open} from localStorage`)
+    }
     menu_nav.style.transition = "width 0s"
     if(left_open){
         menu_nav.style.width = "20vw"

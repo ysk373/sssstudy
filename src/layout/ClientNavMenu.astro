@@ -10,7 +10,7 @@ const {hash, open} = Astro.props;
 const open_class = open?"open":"closed"
 const data_width = open?"20vw":"0vw"
 ---
-<nav class={`${open_class} pages_menu client`} data-width={data_width} data-hash={hash}>
+<nav class={`${open_class} pages_menu client`} data-width={data_width} data-hash={hash} data-force-open={open.toString()}>
 </nav>
 
 <style define:vars={{ data_width }}>
