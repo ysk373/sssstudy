@@ -1,11 +1,69 @@
 ---
-import BlogPostLayout from "@/layout/BlogPostLayout.astro"
-import AstroMarkdown from '@/components/markdown/AstroMarkdown.astro'
-import {getEntry} from 'content-structure'
+import BlogLayout from "@/layout/BlogLayout.astro"
+import PostCard from "@/components/PostCard.astro"
+import { load_json } from "@/libs/utils.js"
+import { config } from "@/config"
 
-const entry = await getEntry({url: "stories/index"});
-const headings = (Object.hasOwn(entry.data,"toc")&&entry.data.toc == false)?[]:entry.data.headings
+const menu = await load_json(config.collect_content.out_menu)
+
+const getItems = (items) => {
+    let posts = []
+    for (const item of items) {
+        if (item.link && 
+            !item.link.endsWith('/index') && 
+            !item.link.endsWith('/')
+        ) {
+             posts.push(item)
+        }
+        if (item.items) {
+            posts = posts.concat(getItems(item.items))
+        }
+    }
+    return posts
+}
+
+let allPosts = []
+if (menu.sections && menu.sections.stories) {
+    allPosts = getItems(menu.sections.stories)
+}
+
+const title = "短編小説一覧"
+const description = "様々なジャンルの短編小説の世界へようこそ"
 ---
-<BlogPostLayout title={entry.data.title} headings={headings} description={entry.data.description}>
-    <AstroMarkdown node={entry.tree} data={entry.data} />
-</BlogPostLayout>
+<BlogLayout title={title} description={description}>
+    <div class="header">
+        <h1>{title}</h1>
+        <p>{description}</p>
+    </div>
+    
+    <div class="posts-grid">
+        {allPosts.map(post => (
+            <PostCard 
+                title={post.label} 
+                url={post.link} 
+                description={post.description || ""} 
+                date={post.date || ""}
+                image={post.image} 
+            />
+        ))}
+    </div>
+</BlogLayout>
+
+<style>
+    .header {
+        text-align: center;
+        margin-bottom: 3rem;
+        padding-top: 2rem;
+    }
+    .header h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5rem;
+        color: var(--front-blue);
+    }
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        padding-bottom: 4rem;
+    }
+</style>
