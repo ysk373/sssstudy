@@ -14,7 +14,8 @@ export interface Props {
 
 const { title, headings, description } = Astro.props;
 const toc_menu_items = process_toc_list(headings);
-const isIndexPage = Astro.url.pathname.endsWith('/index') || Astro.url.pathname.endsWith('/');
+const pathname = Astro.url.pathname.replace(/\/$/, '');
+const isIndexPage = pathname.endsWith('/index') || pathname === '' || pathname.endsWith('/blog') || pathname.endsWith('/stories');
 ---
 <html lang="ja">
 	<head>
