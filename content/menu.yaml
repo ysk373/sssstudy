@@ -21,6 +21,4 @@
 - label: お問い合わせ
   link: /contact
 
-- icon: github
-  align: right
-  link: https://github.com/MicroWebStacks/astro-big-doc
+

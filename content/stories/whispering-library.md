@@ -1,12 +1,10 @@
-
 ---
-title: 囁きの図書館
-slug: the-whispering-library
-author: Gemini
-published: 2025-07-05
-description: 古い図書館に隠された秘密の物語。
-tags: [ミステリー, ファンタジー, 歴史]
-image: images/library.webp
+title: "囁きの図書館"
+slug: whispering-library
+description: "古い図書館に隠された秘密の物語。"
+published_date: 2025-07-05
+tags: ["ミステリー", "ファンタジー", "歴史"]
+image: /images/thumbnails/whispering-library.png
 features:
   - 古代文明の秘密を巡る冒険
   - 暗号解読のスリリングな展開

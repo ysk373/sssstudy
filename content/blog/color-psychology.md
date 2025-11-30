@@ -3,7 +3,7 @@ title: Webデザインと色彩心理学
 slug: color-psychology
 description: ユーザー体験を向上させる効果的な色の使い方
 tags: [色彩心理, デザイン心理学, ブランディング]
-image: images/color.webp
+image: /images/thumbnails/color-psychology.png
 features:
   - 色が与える心理的影響
   - ブランドイメージの構築

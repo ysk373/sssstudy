@@ -16,13 +16,15 @@ function toc_menu_activation(){
     }
     //---------------   Scroll Spy   ---------------
     const article = document.querySelector( 'article.content' )
-    const hrefs = document.getElementsByClassName("toc_href");
-    const targets = [...hrefs].map(el => article.querySelector(escape_href(el.getAttribute('href'))))
+    const targets = [...hrefs].map(el => {
+        const href = el.getAttribute('href');
+        return href ? article.querySelector(escape_href(href)) : null;
+    }).filter(el => el !== null);
     
     article.addEventListener("scroll", (event) => {
         let spy = null//if no element on screen, keep last match and do nothing
         for ( let t in targets ){//find first within visible scroll
-            if(targets[ t ].offsetTop > article.scrollTop){
+            if(targets[t] && targets[ t ].offsetTop > article.scrollTop){
                 spy = targets[ t ]
                 break
             }

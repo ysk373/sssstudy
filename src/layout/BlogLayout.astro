@@ -1,0 +1,131 @@
+---
+import './colors.css';
+import AppBar from './AppBar.astro';
+import { config } from '@/config';
+
+export interface Props {
+	title: string;
+    description?: string;
+}
+
+const { title, description } = Astro.props;
+---
+<html lang="ja">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{title}</title>
+        {description && <meta name="description" content={description} />}
+		<link rel="icon" type="image/png" href={`${config.base}/favicon.png?v=${Date.now()}`}>
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div class="appbar-nav_content-footer">
+			<header>
+				<AppBar/>
+			</header>
+			<main>
+				<article class="content scroll">
+					<div class="article-slot">
+						<slot/>
+					</div>
+				</article>
+			</main>
+			<footer>
+				<p>&copy; 2025 SSSSブログ All Rights Reserved. <a href="/admin/login" class="admin-link">管理</a></p>
+			</footer>
+		</div>
+	</body>
+</html>
+
+<style>
+body{
+	margin:0;
+	font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
+	display:flex;
+	flex-direction: row;
+	font-feature-settings: "palt";
+    background-color: var(--content-bg-color);
+    color: var(--content-color);
+}
+
+.appbar-nav_content-footer{
+	flex-grow:1;
+	display:flex;
+	flex-direction: column;
+	height:100vh;
+}
+
+header{
+    flex-grow:0;
+	background-color: var(--header-bg-color);
+    width:100%;
+    user-select: none;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+main{
+	flex-grow:1;
+	display:flex;
+	flex-direction: column; /* Changed to column for blog layout */
+	height:80vh;
+    width: 100%;
+    max-width: 98%; /* Max width for blog content */
+    margin: 0 auto; /* Center the main content */
+}
+
+footer{
+	flex-grow:0;
+	background-color: var(--front-blue);
+	color:white;
+	text-align: center;
+	overflow: hidden;
+	padding: 12px 0;
+	font-size: 14px;
+}
+
+.content{
+	color:var(--content-color);
+	background-color: var(--content-bg-color);
+	width:100%;
+	flex-grow: 1;
+	overflow:auto;
+	padding:20px 24px;
+    scroll-behavior: smooth;
+}
+
+.article-slot {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.scroll::-webkit-scrollbar {
+	width: 1rem;
+}
+.scroll::-webkit-scrollbar-track {
+	background: var(--content-bg-color); 
+}
+.scroll::-webkit-scrollbar-thumb {
+	background: var(--scroll-thumb-color); 
+}
+.scroll::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover-color); 
+}
+
+.admin-link {
+	opacity: 0.05;
+	text-decoration: none;
+	color: inherit;
+	transition: opacity 0.3s;
+}
+
+.admin-link:hover {
+	opacity: 0.5;
+}
+</style>

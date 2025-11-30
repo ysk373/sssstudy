@@ -1,6 +1,5 @@
 ---
 title: ブログ記事一覧
-slug: index
 description: SSSSブログの記事一覧ページ
 ---
 

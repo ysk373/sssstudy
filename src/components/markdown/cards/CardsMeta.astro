@@ -1,6 +1,5 @@
 ---
 import {assetToUrl} from '@/libs/assets.js'
-import Button from '@/components/markdown/directive/ButtonDirective.astro'
 import {dirname} from 'path'
 export interface Props {
   data: object;
@@ -9,144 +8,362 @@ export interface Props {
 
 const { data, dirpath } = Astro.props as Props;
 
-
 let isSvg = false
 let isImg = false
 let asseturl = ""
+let imageExists = false
+
+// 画像の存在確認とURL取得
 if(data.image){
-    asseturl = await assetToUrl(data.image, dirname(data.path))
-    isSvg = data.image.endsWith(".svg")
-    isImg = !isSvg
+    try {
+        asseturl = await assetToUrl(data.image, dirname(data.path))
+        isSvg = data.image.endsWith(".svg")
+        isImg = !isSvg
+        imageExists = true
+    } catch (e) {
+        imageExists = false
+    }
 }
+
 const url = Object.hasOwn(data,"link")?data.link:`/${data.url}`
 let hasFeatures = Object.hasOwn(data,"features") && (data.features.length > 0)
 let hasTags = Object.hasOwn(data,"tags") && (data.tags.length > 0)
+let hasDescription = Object.hasOwn(data,"description") && data.description
 
+// カテゴリーに応じたアイコンを選択（画像がない場合のフォールバック）
+const getIconEmoji = (tags) => {
+    if (!tags || tags.length === 0) return "📄";
+    const tag = tags[0].toLowerCase();
+    if (tag.includes("デザイン") || tag.includes("design")) return "🎨";
+    if (tag.includes("技術") || tag.includes("tech") || tag.includes("タイポグラフィ")) return "⚙️";
+    if (tag.includes("ビジネス") || tag.includes("business")) return "💼";
+    if (tag.includes("プログラミング") || tag.includes("programming")) return "💻";
+    if (tag.includes("ミステリー") || tag.includes("mystery")) return "🔍";
+    if (tag.includes("ファンタジー") || tag.includes("fantasy")) return "✨";
+    if (tag.includes("SF") || tag.includes("sci-fi") || tag.includes("AI")) return "🚀";
+    if (tag.includes("色") || tag.includes("color")) return "🎨";
+    return "📝";
+}
+
+const iconEmoji = hasTags ? getIconEmoji(data.tags) : "📝";
 ---
-<div class="card meta container">
-    <div class="content">
-        {hasTags&&
-            <div class="tags container">
-                {data.tags.map((tag)=>(
-                    <div class="tag">{tag}</div>
-                ))}
+<a href={url} class="card-link">
+    <div class="card meta container">
+        {/* ヘッダー画像またはアイコン */}
+        {!imageExists &&
+            <div class="icon-header">
+                <div class="icon-emoji">{iconEmoji}</div>
             </div>
         }
-        <h1 class="title">{data.title}</h1>
-        <div class="itemimage">
-            {isSvg&&
-                <object data={asseturl} name={data.title} data-alt={data.title} />
+        {imageExists &&
+            <div class="itemimage">
+                {isSvg&&
+                    <object data={asseturl} name={data.title} data-alt={data.title} />
+                }
+                {isImg&&
+                    <img src={asseturl} title={data.title} alt={data.title} />
+                }
+            </div>
+        }
+
+        <div class="content">
+            {/* タグ */}
+            {hasTags&&
+                <div class="tags container">
+                    {data.tags.map((tag)=>(
+                        <span class="tag">{tag}</span>
+                    ))}
+                </div>
             }
-            {isImg&&
-                <img src={asseturl} title={data.title} alt={data.title} />
+
+            {/* タイトル */}
+            <h2 class="title">{data.title}</h2>
+
+            {/* 特徴リスト */}
+            {hasFeatures&&
+                <ul class="features">
+                    {data.features.slice(0, 3).map((feature)=>(
+                        <li><span class="check">✓</span><span>{feature}</span></li>
+                    ))}
+                </ul>
             }
         </div>
-        {hasFeatures&&
-            <ul>
-                {data.features.map((feature)=>(
-                    <li><div class="check" /><div>{feature}</div></li>
-                ))}
-            </ul>
-        }
+
+        {/* CTAボタン */}
+        <div class="bottom">
+            <div class="cta-button">
+                <span class="cta-text">続きを読む</span>
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+            </div>
+        </div>
     </div>
-    <div class="bottom">
-        <Button label="Details..." link={url} />
-    </div>
-</div>
+</a>
 
 <style>
-.card.meta.container{
-    display:flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0;
-    height:100%;
+.card-link {
+    text-decoration: none;
+    display: block;
+    height: 100%;
 }
-.content{
-    width:100%;
-    flex-grow: 1;
+
+.card.meta.container {
     display: flex;
     flex-direction: column;
+    height: 100%;
+    padding: 0;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.bottom{
-    margin-top: 1.5rem;
-    width:100%;
-    text-align: center;
+
+.card-link:hover .card.meta.container {
+    transform: translateY(-8px);
 }
-.title{
-    width:100%;
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 500;
-    margin-top: 0.5rem;
-    margin-bottom: 1rem;
-    line-height: 1.3;
-}
-.itemimage{
-    width:100%;
+
+/* アイコンヘッダー（画像がない場合） */
+.icon-header {
+    width: 100%;
+    height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
     overflow: hidden;
-    border-radius: 8px;
-    margin-bottom: 1rem;
+    border-radius: 16px 16px 0 0;
+}
+
+.icon-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+    animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.5; }
+    50% { transform: scale(1.1); opacity: 0.8; }
+}
+
+.icon-emoji {
+    font-size: 4rem;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+    position: relative;
+    z-index: 1;
+}
+
+/* 画像表示 */
+.itemimage {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
     display: flex;
     justify-content: center;
     align-items: center;
-    aspect-ratio: 16 / 9;
-    background-color: rgba(0, 0, 0, 0.1);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    position: relative;
+    border-radius: 16px 16px 0 0;
 }
-object{
-    pointer-events: none;
-    max-height: 100%;
-    max-width: 100%;
-    transition: transform 0.3s ease;
-}
-img{
+
+object, img {
     pointer-events: none;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.card:hover img, .card:hover object {
-    transform: scale(1.05);
+
+.card-link:hover img, .card-link:hover object {
+    transform: scale(1.1);
 }
-ul{
-    width:100%;
-    margin: 0px;
-    margin-top: 1rem;
-    padding: 0px;
-}
-li{
-    list-style-type: none;
-    padding: 0.5rem 0;
+
+/* コンテンツエリア */
+.content {
+    width: 100%;
+    flex-grow: 1;
     display: flex;
-    align-items: center;
-    font-size: 0.95rem;
+    flex-direction: column;
+    padding: 1.5rem;
+    padding-bottom: 0;
+    box-sizing: border-box;
 }
-.check{
-    margin-right: 10px;
-    background-color: var(--front-blue);
-    padding: 0;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-}
-.tags.container{
+
+/* タグ */
+.tags.container {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
 }
-.tag{
-    background-color: rgba(138, 115, 85, 0.15);
-    padding: 0.35rem 0.75rem;
-    border-radius: 50px;
+
+.tag {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.12), rgba(118, 75, 162, 0.12));
+    border: 1px solid rgba(102, 126, 234, 0.3);
+    padding: 0.35rem 0.85rem;
+    border-radius: 20px;
+    color: #667eea;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.card-link:hover .tag {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.25), rgba(118, 75, 162, 0.25));
+    transform: translateY(-2px);
+    border-color: rgba(102, 126, 234, 0.5);
+}
+
+/* タイトル */
+.title {
+    width: 100%;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 0.85rem 0;
+    line-height: 1.4;
     color: var(--content-color);
-    font-size: 0.8rem;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
+    transition: color 0.3s ease;
+    overflow-wrap: break-word;
+    word-break: break-word;
 }
-.tag:hover {
-    background-color: rgba(138, 115, 85, 0.3);
+
+.card-link:hover .title {
+    color: #667eea;
+}
+
+/* 特徴リスト */
+.features {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.features li {
+    list-style-type: none;
+    padding: 0.45rem 0;
+    display: flex;
+    align-items: flex-start;
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: #555;
+    gap: 0.5rem;
+}
+
+.check {
+    color: #667eea;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-top: 0.1rem;
+}
+
+/* CTAボタン */
+.bottom {
+    margin-top: auto;
+    width: 100%;
+    padding: 0 1.5rem 1.5rem 1.5rem;
+    box-sizing: border-box;
+}
+
+.cta-button {
+    width: 100%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+    position: relative;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.cta-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    transition: left 0.5s;
+}
+
+.card-link:hover .cta-button::before {
+    left: 100%;
+}
+
+.card-link:hover .cta-button {
+    background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.45);
+    transform: translateY(-2px);
+}
+
+.cta-text {
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.arrow-icon {
+    width: 22px;
+    height: 22px;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.6, 1);
+}
+
+.card-link:hover .arrow-icon {
+    transform: translateX(5px);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 700px) {
+    .icon-header {
+        height: 140px;
+    }
+
+    .icon-emoji {
+        font-size: 3rem;
+    }
+
+    .itemimage {
+        height: 160px;
+    }
+
+    .content {
+        padding: 1.25rem;
+        padding-bottom: 0;
+    }
+
+    .title {
+        font-size: 1.25rem;
+    }
+
+    .description {
+        font-size: 0.85rem;
+    }
+
+    .features li {
+        font-size: 0.8rem;
+    }
+
+    .bottom {
+        padding: 0 1.25rem 1.25rem 1.25rem;
+    }
+
+    .cta-button {
+        padding: 0.85rem 1.25rem;
+        font-size: 0.9rem;
+    }
 }
 </style>

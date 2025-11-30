@@ -6,7 +6,7 @@ genre: ["SF", "ミステリー"]
 tags: ["プログラミング", "AI", "近未来"]
 reading_time: "8分"
 published_date: 2025-01-15
-image: images/digital-dream.webp
+image: /images/thumbnails/sample-story.png
 features:
   - 技術者なら共感できるリアルな描写
   - AIと人間の境界線を探る哲学的テーマ

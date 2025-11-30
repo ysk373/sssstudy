@@ -1,6 +1,5 @@
 ---
 title: 短編小説一覧
-slug: index
 description: 様々なジャンルの短編小説の世界へようこそ
 ---
 

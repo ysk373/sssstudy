@@ -3,7 +3,7 @@ title: ウェブサイトのタイポグラフィ改善術
 slug: typography-tips
 description: 読みやすく美しいタイポグラフィのための7つのヒント
 tags: [タイポグラフィ, ウェブデザイン, 読みやすさ]
-image: images/typography.webp
+image: /images/thumbnails/typography-tips.png
 features:
   - 適切なフォント選び
   - 階層構造の明確化

@@ -1,0 +1,11 @@
+---
+import BlogPostLayout from "@/layout/BlogPostLayout.astro"
+import AstroMarkdown from '@/components/markdown/AstroMarkdown.astro'
+import {getEntry} from 'content-structure'
+
+const entry = await getEntry({url: "blog/index"});
+const headings = (Object.hasOwn(entry.data,"toc")&&entry.data.toc == false)?[]:entry.data.headings
+---
+<BlogPostLayout title={entry.data.title} headings={headings} description={entry.data.description}>
+    <AstroMarkdown node={entry.tree} data={entry.data} />
+</BlogPostLayout>

@@ -1,16 +1,174 @@
 ---
-import Layout from "@/layout/Layout.astro"
-import AstroMarkdown from '@/components/markdown/AstroMarkdown.astro'
-import {getEntry} from 'content-structure'
+import BlogLayout from "@/layout/BlogLayout.astro"
+import PostCard from "@/components/PostCard.astro"
+import { load_json } from "@/libs/utils.js"
+import { config } from "@/config"
 
 console.log(`index> home page`)
-let entry = await getEntry({url:""})
-let empty = (Object.keys(entry.tree).length == 0)
-const headings = (Object.hasOwn(entry.data,"toc")&&entry.data.toc == false)?[]:entry.data.headings
+
+// Load the generated menu to get the list of posts
+let allPosts = []
+try {
+    const menu = await load_json(config.collect_content.out_menu)
+    const sections = menu.sections
+
+    const getItems = (items) => {
+        let posts = []
+        for (const item of items) {
+            // Filter out index pages and non-link items
+            // Also explicitly exclude /blog and /stories roots if they appear in the list
+            if (item.link && 
+                !item.link.endsWith('/index') && 
+                !item.link.endsWith('/') &&
+                !item.link.endsWith('/blog') &&
+                !item.link.endsWith('/stories')
+            ) { 
+                 posts.push(item)
+            }
+            if (item.items) {
+                posts = posts.concat(getItems(item.items))
+            }
+        }
+        return posts
+    }
+
+    for (const section in sections) {
+        allPosts = allPosts.concat(getItems(sections[section]))
+    }
+} catch (e) {
+    console.error("Failed to load menu.json", e)
+}
+
+// Sort posts? For now, just list them.
+// Limit to latest 10?
+allPosts = allPosts.slice(0, 12);
+
+const sections = [
+    {
+        title: "ブログ",
+        description: "日々の気付きや技術的なメモ、資産運用の記録など。",
+        url: "/blog/index",
+        image: "/images/thumbnails/typography-tips.png", // Representative image
+        tags: ["Blog", "Tech", "Life"]
+    },
+    {
+        title: "短編小説",
+        description: "心躍る物語の世界へ。SF、ミステリー、ファンタジーなど。",
+        url: "/stories/index",
+        image: "/images/thumbnails/sample-story.png", // Representative image
+        tags: ["Stories", "Fiction"]
+    }
+]
 
 ---
-<Layout title={entry.data.title} headings={headings} >
-    {!empty&&
-        <AstroMarkdown node={entry.tree} data={entry.data} />
+<BlogLayout title="SSSSブログ - 個人的に気になったことの備忘録" description="個人的に気になったことの備忘録。ブログ運営、資産運用、Web制作など。">
+    <div class="hero">
+        <h1>SSSSブログ</h1>
+        <p class="subtitle">個人的に気になったことの備忘録</p>
+    </div>
+    
+    <section class="ad-banner">
+        <div class="ad-placeholder">
+            Banner Ad (728x90)
+        </div>
+    </section>
+
+    <section class="sections-area">
+        <h2>Sections</h2>
+        <div class="posts-grid">
+            {sections.map(section => (
+                <PostCard 
+                    title={section.title} 
+                    url={section.url} 
+                    description={section.description} 
+                    date=""
+                    image={section.image} 
+                />
+            ))}
+        </div>
+    </section>
+
+    <section class="latest-posts">
+        <h2>Latest Articles</h2>
+        <div class="posts-grid">
+            {allPosts.map(post => (
+                <PostCard 
+                    title={post.label} 
+                    url={post.link} 
+                    description={post.description || "記事を読む..."} 
+                    date={post.date || ""}
+                    image={post.image || "/placeholder-image.jpg"} 
+                />
+            ))}
+        </div>
+    </section>
+</BlogLayout>
+
+<style>
+    .hero {
+        text-align: center;
+        padding: 4rem 1rem;
+        background: linear-gradient(to bottom, var(--header-bg-color), var(--content-bg-color));
+        margin-bottom: 2rem;
+        border-radius: 0 0 16px 16px;
     }
-</Layout>
+
+    .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 0.5rem;
+        color: var(--front-blue);
+    }
+
+    .subtitle {
+        font-size: 1.2rem;
+        color: #ccc;
+    }
+
+    .sections-area, .latest-posts {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 4rem;
+    }
+
+    .sections-area h2, .latest-posts h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+        font-size: 2rem;
+        border-bottom: 2px solid var(--front-blue);
+        display: inline-block;
+        padding-bottom: 0.5rem;
+    }
+
+    .posts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2rem;
+        width: 100%;
+    }
+
+    .ad-banner {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 3rem;
+    }
+
+    .ad-placeholder {
+        width: 728px;
+        height: 90px;
+        background-color: #222;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #666;
+        border: 1px dashed #444;
+    }
+
+    @media (max-width: 768px) {
+        .ad-placeholder {
+            width: 100%;
+            height: 100px;
+        }
+    }
+</style>

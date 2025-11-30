@@ -1,0 +1,118 @@
+---
+import { process_toc_list } from "@/layout/layout_utils";
+
+export interface Props {
+    headings: Array<Object>;
+}
+
+const { headings } = Astro.props;
+const toc_menu_items = process_toc_list(headings);
+
+---
+<nav class="toc-container">
+    <div class="toc-header">目次</div>
+    {toc_menu_items.visible && (
+        <ul class="toc-list">
+            {toc_menu_items.items.map((item) => (
+                <li class={`toc-item depth-${item.depth}`}>
+                    <a href={item.link} class="toc-link">{item.text}</a>
+                    {item.items && item.items.length > 0 && (
+                        <ul class="toc-sublist">
+                            {item.items.map((subItem) => (
+                                <li class={`toc-item depth-${subItem.depth}`}>
+                                    <a href={subItem.link} class="toc-link">{subItem.text}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </li>
+            ))}
+        </ul>
+    )}
+</nav>
+
+<script>
+    // Simple scroll spy implementation
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                document.querySelectorAll('.toc-link').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === `#${id}`) {
+                        link.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-100px 0px -66%' });
+
+    document.querySelectorAll('h2, h3').forEach(section => {
+        observer.observe(section);
+    });
+</script>
+
+<style>
+    .toc-container {
+        width: 250px;
+        position: sticky;
+        top: 80px; /* Adjust based on header height */
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+        padding-right: 1rem;
+        margin-right: 2rem;
+        flex-shrink: 0;
+    }
+
+    .toc-header {
+        font-weight: bold;
+        margin-bottom: 1rem;
+        font-size: 1.1rem;
+        color: var(--content-color);
+        border-bottom: 2px solid var(--front-blue);
+        padding-bottom: 0.5rem;
+    }
+
+    .toc-list, .toc-sublist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .toc-sublist {
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+    }
+
+    .toc-item {
+        margin-bottom: 0.5rem;
+    }
+
+    .toc-link {
+        text-decoration: none;
+        color: #6B7280; /* Gray-500 */
+        font-size: 0.9rem;
+        display: block;
+        padding: 0.25rem 0;
+        transition: color 0.2s, border-left 0.2s;
+        border-left: 2px solid transparent;
+        padding-left: 0.75rem;
+    }
+
+    .toc-link:hover {
+        color: var(--front-blue);
+    }
+
+    .toc-link.active {
+        color: var(--front-blue);
+        font-weight: 500;
+        border-left-color: var(--front-blue);
+        background-color: var(--menu-active-color);
+    }
+
+    @media (max-width: 1100px) {
+        .toc-container {
+            display: none;
+        }
+    }
+</style>
