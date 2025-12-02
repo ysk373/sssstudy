@@ -172,5 +172,29 @@ footer{
         }
     }
 
+    @media (max-width: 900px) {
+        .appbar-nav_content-footer {
+            height: auto;
+            min-height: 100vh;
+        }
+        main {
+            height: auto;
+        }
+        .container {
+            flex-direction: column;
+            overflow: visible;
+        }
+        .content {
+            overflow: visible;
+            padding: 1rem;
+        }
+        /* Ensure sidebar appears at the bottom and takes full width */
+        :global(.sidebar) {
+            width: 100% !important;
+            margin-left: 0 !important;
+            margin-top: 2rem;
+        }
+    }
+
 
 </style>
