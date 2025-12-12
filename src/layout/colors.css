@@ -1,33 +1,39 @@
 :root {
-    /* 基本カラー - ライトベース (Modern Blue) */
-    --header-bg-color: #FFFFFF;
-    --header-active-color: #F3F4F6;
-    --fixed-nav-bg-color: #F9FAFB;
-    --fixed-nav-hover-color: #E5E7EB;
-    --nav-bg-color: #FFFFFF;
-    
-    /* アクセントカラー - Modern Blue */
-    --front-blue: #007AFF;
-    --content-color: #1F2937; /* Dark Gray for text */
-    --content-bg-color: #FFFFFF;
-    
-    /* スクロールとUI要素 */
-    --scroll-thumb-color: #D1D5DB;
-    --scroll-thumb-hover-color: #9CA3AF;
-    --article-anchor-color: #007AFF;
-    
-    /* メニュー関連 */
-    --menu-span-hover-color: #F3F4F6;
-    --menu-active-color: #EFF6FF; /* Light Blue */
-    --menu-icon-hover-color: #007AFF;
-    --menu-border-left-color: #007AFF;
-    
-    /* 短編小説専用カラー (変更なし、または微調整) */
-    --story-accent-color: #6B5B73;
-    --story-bg-color: #1A1A1A;
-    --story-text-color: #E8E3D3;
-    --story-highlight-color: #8B7D6B;
-    --story-border-color: rgba(107, 91, 115, 0.3);
-    --story-reading-bg: #0F0F0F;
-    --story-chapter-color: #9B8B6B;
-  }	
+  /* Typography - 中央管理されたフォント設定 */
+  --font-size-base: 17px;
+  --line-height-base: 1.8;
+
+  /* 基本カラー - ライトベース (Modern Blue) */
+  --header-bg-color: #FFFFFF;
+  --header-active-color: #F3F4F6;
+  --fixed-nav-bg-color: #F9FAFB;
+  --fixed-nav-hover-color: #E5E7EB;
+  --nav-bg-color: #FFFFFF;
+
+  /* アクセントカラー - Modern Blue */
+  --front-blue: #007AFF;
+  --content-color: #1F2937;
+  /* Dark Gray for text */
+  --content-bg-color: #FFFFFF;
+
+  /* スクロールとUI要素 */
+  --scroll-thumb-color: #D1D5DB;
+  --scroll-thumb-hover-color: #9CA3AF;
+  --article-anchor-color: #007AFF;
+
+  /* メニュー関連 */
+  --menu-span-hover-color: #F3F4F6;
+  --menu-active-color: #EFF6FF;
+  /* Light Blue */
+  --menu-icon-hover-color: #007AFF;
+  --menu-border-left-color: #007AFF;
+
+  /* 短編小説専用カラー (変更なし、または微調整) */
+  --story-accent-color: #6B5B73;
+  --story-bg-color: #1A1A1A;
+  --story-text-color: #E8E3D3;
+  --story-highlight-color: #8B7D6B;
+  --story-border-color: rgba(107, 91, 115, 0.3);
+  --story-reading-bg: #0F0F0F;
+  --story-chapter-color: #9B8B6B;
+}
