@@ -1,159 +1,182 @@
 ---
-import './colors.css';
-import AppBar from './AppBar.astro';
-import BlogSidebar from '@/components/BlogSidebar.astro';
-import SideMenu from './SideMenu.astro';
+import "./colors.css";
+import AppBar from "./AppBar.astro";
+import BlogSidebar from "@/components/BlogSidebar.astro";
+import SideMenu from "./SideMenu.astro";
 import { process_toc_list } from "./layout_utils";
-import { config } from '@/config';
+import { config } from "@/config";
 
 export interface Props {
-	title: string;
+    title: string;
     headings?: Array<Object>;
     description?: string;
 }
 
 const { title, headings, description } = Astro.props;
 const toc_menu_items = process_toc_list(headings);
-const pathname = Astro.url.pathname.replace(/\/$/, '');
-const isIndexPage = pathname.endsWith('/index') || pathname === '' || pathname.endsWith('/blog') || pathname.endsWith('/stories');
+const pathname = Astro.url.pathname.replace(/\/$/, "");
+const isIndexPage =
+    pathname.endsWith("/index") ||
+    pathname === "" ||
+    pathname.endsWith("/blog") ||
+    pathname.endsWith("/stories");
 ---
+
 <html lang="ja">
-	<head>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>{title}</title>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <meta name="generator" content={Astro.generator} />
+        <title>{title}</title>
         {description && <meta name="description" content={description} />}
-		<link rel="icon" type="image/png" href={`${config.base}/favicon.png?v=${Date.now()}`}>
-		<link rel="preconnect" href="https://fonts.googleapis.com">
-		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-	</head>
-	<body>
-		<div class="appbar-nav_content-footer">
-			<header>
-				<AppBar/>
-			</header>
-			<main>
+        <link
+            rel="icon"
+            type="image/png"
+            href={`${config.base}/favicon.png?v=${Date.now()}`}
+        />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&display=swap"
+            rel="stylesheet"
+        />
+    </head>
+    <body>
+        <div class="appbar-nav_content-footer">
+            <header>
+                <AppBar />
+            </header>
+            <main>
                 <div class="container">
-                    {!isIndexPage && (
-                        <div class="toc-sidebar">
-                            {toc_menu_items.visible && 
-                                <SideMenu items={toc_menu_items.items} category="toc_menu"/>
-                            }
-                        </div>
-                    )}
+                    {
+                        !isIndexPage && (
+                            <div class="toc-sidebar">
+                                {toc_menu_items.visible && (
+                                    <SideMenu
+                                        items={toc_menu_items.items}
+                                        category="toc_menu"
+                                    />
+                                )}
+                            </div>
+                        )
+                    }
                     <article class="content scroll">
                         <div class="article-slot">
-                            <slot/>
+                            <slot />
                         </div>
                     </article>
                     {!isIndexPage && <BlogSidebar />}
                 </div>
-			</main>
-			<footer>
-				<p>&copy; 2025 SSSSブログ All Rights Reserved. <a href="/admin/login" class="admin-link">管理</a></p>
-			</footer>
-<script src={`./toc_menu_activation.js?v=${Date.now()}`} />
-		</div>
-	</body>
+            </main>
+            <footer>
+                <p>
+                    &copy; 2025 SSSSブログ All Rights Reserved. <a
+                        href="/admin/login"
+                        class="admin-link">管理</a>
+                </p>
+            </footer>
+            <script src={`./toc_menu_activation.js?v=${Date.now()}`}></script>
+        </div>
+    </body>
 </html>
 
 <style>
-body{
-	margin:0;
-	font-family: 'Noto Sans JP', 'Helvetica Neue', Arial, sans-serif;
-	display:flex;
-	flex-direction: row;
-	font-feature-settings: "palt";
-    background-color: var(--content-bg-color);
-    color: var(--content-color);
-}
+    body {
+        margin: 0;
+        font-family: "Noto Sans JP", "Helvetica Neue", Arial, sans-serif;
+        display: flex;
+        flex-direction: row;
+        font-feature-settings: "palt";
+        background-color: var(--content-bg-color);
+        color: var(--content-color);
+    }
 
-.appbar-nav_content-footer{
-	flex-grow:1;
-	display:flex;
-	flex-direction: column;
-	height:100vh;
-}
+    .appbar-nav_content-footer {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+    }
 
-header{
-    flex-grow:0;
-	background-color: var(--header-bg-color);
-    width:100%;
-    user-select: none;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
+    header {
+        flex-grow: 0;
+        background-color: var(--header-bg-color);
+        width: 100%;
+        user-select: none;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
 
-main{
-	flex-grow:1;
-	display:flex;
-	flex-direction: column;
-	height:80vh;
-    width: 100%;
-}
+    main {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        height: 80vh;
+        width: 100%;
+    }
 
-.container {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-    max-width: 98%; /* Push to edges */
-    margin: 0 auto;
-    flex-grow: 1;
-    overflow: hidden; /* Prevent double scrollbars */
-}
+    .container {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        max-width: 98%; /* Push to edges */
+        margin: 0 auto;
+        flex-grow: 1;
+        overflow: hidden; /* Prevent double scrollbars */
+    }
 
-footer{
-	flex-grow:0;
-	background-color: var(--front-blue);
-	color:white;
-	text-align: center;
-	overflow: hidden;
-	padding: 12px 0;
-	font-size: 14px;
-}
+    footer {
+        flex-grow: 0;
+        background-color: var(--front-blue);
+        color: white;
+        text-align: center;
+        overflow: hidden;
+        padding: 12px 0;
+        font-size: 14px;
+    }
 
-.content{
-	color:var(--content-color);
-	background-color: var(--content-bg-color);
-	width:100%;
-	flex-grow: 1;
-	overflow:auto;
-	padding:20px 12px;
-    scroll-behavior: smooth;
-}
+    .content {
+        color: var(--content-color);
+        background-color: var(--content-bg-color);
+        width: 100%;
+        flex-grow: 1;
+        overflow: auto;
+        padding: 20px 12px;
+        scroll-behavior: smooth;
+    }
 
-.article-slot {
-    max-width: 100%; /* Allow content to widen */
-    margin: 0 auto;
-}
+    .article-slot {
+        max-width: 100%; /* Allow content to widen */
+        margin: 0 auto;
+        font-size: 17px;
+        line-height: 1.8;
+    }
 
-.scroll::-webkit-scrollbar {
-	width: 1rem;
-}
-.scroll::-webkit-scrollbar-track {
-	background: var(--content-bg-color); 
-}
-.scroll::-webkit-scrollbar-thumb {
-	background: var(--scroll-thumb-color); 
-}
-.scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--scroll-thumb-hover-color); 
-}
+    .scroll::-webkit-scrollbar {
+        width: 1rem;
+    }
+    .scroll::-webkit-scrollbar-track {
+        background: var(--content-bg-color);
+    }
+    .scroll::-webkit-scrollbar-thumb {
+        background: var(--scroll-thumb-color);
+    }
+    .scroll::-webkit-scrollbar-thumb:hover {
+        background: var(--scroll-thumb-hover-color);
+    }
 
-.admin-link {
-	opacity: 0.05;
-	text-decoration: none;
-	color: inherit;
-	transition: opacity 0.3s;
-}
+    .admin-link {
+        opacity: 0.05;
+        text-decoration: none;
+        color: inherit;
+        transition: opacity 0.3s;
+    }
 
-.admin-link:hover {
-	opacity: 0.5;
-}
+    .admin-link:hover {
+        opacity: 0.5;
+    }
 
     .toc-sidebar {
         width: 250px;
@@ -195,6 +218,4 @@ footer{
             margin-top: 2rem;
         }
     }
-
-
 </style>
