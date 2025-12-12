@@ -1,0 +1,58 @@
+<svg width="800" height="240" xmlns="http://www.w3.org/2000/svg">
+      {/* 時間-周波数領域の表現 */}
+      <rect x="70" y="40" width="200" height="160" fill="none" stroke="#007AFF" strokeWidth="1" />
+      <text x="170" y="25" textAnchor="middle" fill="#1F2937">混合信号 X</text>
+      
+      {/* 周波数軸 */}
+      <line x1="70" y1="40" x2="70" y2="200" stroke="#1F2937" strokeWidth="1" />
+      <text x="20" y="120" textAnchor="middle" transform="rotate(-90, 20, 120)" fill="#1F2937">周波数</text>
+      
+      {/* 時間軸 */}
+      <line x1="70" y1="200" x2="270" y2="200" stroke="#1F2937" strokeWidth="1" />
+      <text x="170" y="220" textAnchor="middle" fill="#1F2937">時間</text>
+      
+      {/* 周波数帯の例示 */}
+      <rect x="70" y="60" width="200" height="20" fill="rgba(255, 0, 0, 0.2)" />
+      <text x="55" y="70" textAnchor="end" fontSize="10" fill="#1F2937">f=1</text>
+      
+      <rect x="70" y="100" width="200" height="20" fill="rgba(0, 255, 0, 0.2)" />
+      <text x="55" y="110" textAnchor="end" fontSize="10" fill="#1F2937">f=2</text>
+      
+      <rect x="70" y="140" width="200" height="20" fill="rgba(0, 0, 255, 0.2)" />
+      <text x="55" y="150" textAnchor="end" fontSize="10" fill="#1F2937">f=3</text>
+      
+      <rect x="70" y="180" width="200" height="20" fill="rgba(255, 0, 255, 0.2)" />
+      <text x="55" y="190" textAnchor="end" fontSize="10" fill="#1F2937">f=4</text>
+      
+      {/* 変換の矢印 */}
+      <line x1="290" y1="120" x2="400" y2="120" stroke="#1F2937" strokeWidth="2" />
+      <polygon points="400,120 390,115 390,125" fill="#1F2937" />
+      <text x="345" y="110" textAnchor="middle" fontSize="12" fill="#1F2937">IVA</text>
+      
+      {/* 分離信号 */}
+      <rect x="450" y="40" width="200" height="160" fill="none" stroke="#007AFF" strokeWidth="1" />
+      <text x="550" y="25" textAnchor="middle" fill="#1F2937">分離信号 S</text>
+      
+      {/* 周波数軸 */}
+      <line x1="450" y1="40" x2="450" y2="200" stroke="#1F2937" strokeWidth="1" />
+      <text x="420" y="120" textAnchor="middle" transform="rotate(-90, 420, 120)" fill="#1F2937">周波数</text>
+      
+      {/* 時間軸 */}
+      <line x1="450" y1="200" x2="650" y2="200" stroke="#1F2937" strokeWidth="1" />
+      <text x="550" y="220" textAnchor="middle" fill="#1F2937">時間</text>
+      
+      {/* 音源1の各周波数成分 */}
+      <rect x="450" y="60" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <rect x="450" y="100" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <rect x="450" y="140" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <rect x="450" y="180" width="200" height="20" fill="rgba(255, 0, 0, 0.6)" />
+      <text x="550" y="75" textAnchor="middle" fill="white">音源1 (f=1)</text>
+      <text x="550" y="115" textAnchor="middle" fill="white">音源1 (f=2)</text>
+      <text x="550" y="155" textAnchor="middle" fill="white">音源1 (f=3)</text>
+      <text x="550" y="195" textAnchor="middle" fill="white">音源1 (f=4)</text>
+
+      {/* ベクトル表現の説明 */}
+      <line x1="670" y1="60" x2="670" y2="200" stroke="#007AFF" strokeWidth="2" strokeDasharray="5,3" />
+      <text x="690" y="130" textAnchor="start" fontSize="10" fill="#1F2937">ベクトルとして</text>
+      <text x="690" y="145" textAnchor="start" fontSize="10" fill="#1F2937">一括処理</text>
+    </svg>

@@ -11,11 +11,6 @@ features:
   - 2025年の最新動向と研究の方向性
 ---
 
-import IVAModelDiagram from '@/components/diagrams/IVAModelDiagram.astro';
-import FrequencyBinSTFT from '@/components/diagrams/FrequencyBinSTFT.astro';
-import FrequencyBinICA from '@/components/diagrams/FrequencyBinICA.astro';
-import PermutationProblem from '@/components/diagrams/PermutationProblem.astro';
-
 # 信号処理のマジック: ICAとIVAによるノイズ分離技術を理解する
 
 多くの音声が飛び交うパーティー会場で友人の声だけを聞き分けられる人間の能力を、コンピュータで再現するとしたらどうでしょうか？本記事では、混ざり合った信号から必要な情報を抽出する「独立成分分析(ICA)」と「独立ベクトル分析(IVA)」について解説します。
@@ -99,11 +94,15 @@ ICAは多くの場合で有効ですが、実際の音声信号のような複�
 
 この問題を解決するために、信号を「時間-周波数領域」に変換して処理します。短時間フーリエ変換（STFT）を使って信号を周波数成分に分解し、各周波数ごとに独立してICAを適用します。
 
-<FrequencyBinSTFT />
+### STFTによる時間-周波数領域への変換
+![STFTによる時間-周波数領域への変換](/images/ica-iva-noise-separation/FrequencyBinSTFT.svg)
+*時間領域の混合信号をSTFTで分解し、各周波数ビンごとのデータとして扱います*
 
 次に、各周波数ビンごとに独立してICAを適用します。
 
-<FrequencyBinICA />
+### 周波数ビンごとのICA適用
+![周波数ビンごとのICA適用](/images/ica-iva-noise-separation/FrequencyBinICA.svg)
+*各周波数ビンに対して独立にICAを適用し、分離行列を求めます*
 
 しかし、各周波数で独立にICAを適用すると、分離結果の順序が周波数間で一致しないことがあります。例えば：
 - 100Hz帯域：「話者1の声→出力1、話者2の声→出力2」
@@ -111,7 +110,9 @@ ICAは多くの場合で有効ですが、実際の音声信号のような複�
 
 これがパーミュテーション問題です。
 
-<PermutationProblem />
+### パーミュテーション問題
+![パーミュテーション問題](/images/ica-iva-noise-separation/PermutationProblem.svg)
+*周波数ごとに分離結果の順序が異なってしまう問題（パーミュテーション問題）*
 
 「あ」という音声は様々な周波数成分から成りますが、周波数ごとに成分の順序が入れ替わってしまうと、復元した信号はバラバラになってしまいます。
 
@@ -125,7 +126,9 @@ IVAの鍵となる考え方は「同一音源の周波数成分は同時に生�
 
 IVAでは、各周波数の成分をベクトルとしてまとめて扱い、「周波数をまたいだベクトル同士の独立性」を最大化します。これにより、自動的にパーミュテーション問題を回避します。
 
-<IVAModelDiagram />
+### IVAによる解決
+![IVAによる解決](/images/ica-iva-noise-separation/IVAModelDiagram.svg)
+*IVAでは全周波数をベクトルとしてまとめて扱うことで、パーミュテーション問題を回避します*
 
 数学的には、同じ音源の全ての周波数成分をベクトルとして扱います：
 

@@ -4,12 +4,12 @@
     directory: home
 
 - label: ブログ
-  link: /blog/index
+  link: /blog
   autogenerate:
     directory: blog
 
 - label: 短編小説
-  link: /stories/index
+  link: /stories
   autogenerate:
     directory: stories
 
