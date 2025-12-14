@@ -284,6 +284,24 @@ console.log(
 		font-weight: 400;
 	}
 
+	/* Prevent overflow for images, videos, code blocks, and tables */
+	.article-slot :global(img),
+	.article-slot :global(video) {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.article-slot :global(pre) {
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
+	.article-slot :global(table) {
+		display: block;
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
 	.admin-link {
 		opacity: 0.05;
 		text-decoration: none;

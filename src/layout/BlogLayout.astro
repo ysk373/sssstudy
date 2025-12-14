@@ -115,6 +115,24 @@ const { title, description } = Astro.props;
 		scroll-behavior: smooth;
 	}
 
+	/* Prevent overflow for images, videos, code blocks, and tables */
+	.article-slot :global(img),
+	.article-slot :global(video) {
+		max-width: 100%;
+		height: auto;
+	}
+
+	.article-slot :global(pre) {
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
+	.article-slot :global(table) {
+		display: block;
+		max-width: 100%;
+		overflow-x: auto;
+	}
+
 	.article-slot {
 		max-width: 900px;
 		margin: 0 auto;

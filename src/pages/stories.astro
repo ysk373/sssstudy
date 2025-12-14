@@ -1,51 +1,55 @@
 ---
-import BlogLayout from "@/layout/BlogLayout.astro"
-import PostCard from "@/components/PostCard.astro"
-import { load_json } from "@/libs/utils.js"
-import { config } from "@/config"
+import BlogLayout from "@/layout/BlogLayout.astro";
+import PostCard from "@/components/PostCard.astro";
+import { load_json } from "@/libs/utils.js";
+import { config } from "@/config";
 
-const menu = await load_json(config.collect_content.out_menu)
+const menu = await load_json(config.collect_content.out_menu);
 
 const getItems = (items) => {
-    let posts = []
+    let posts = [];
     for (const item of items) {
-        if (item.link && 
-            !item.link.endsWith('/index') && 
-            !item.link.endsWith('/')
+        if (
+            item.link &&
+            !item.link.endsWith("/index") &&
+            !item.link.endsWith("/")
         ) {
-             posts.push(item)
+            posts.push(item);
         }
         if (item.items) {
-            posts = posts.concat(getItems(item.items))
+            posts = posts.concat(getItems(item.items));
         }
     }
-    return posts
-}
+    return posts;
+};
 
-let allPosts = []
+let allPosts = [];
 if (menu.sections && menu.sections.stories) {
-    allPosts = getItems(menu.sections.stories)
+    allPosts = getItems(menu.sections.stories);
 }
 
-const title = "短編小説一覧"
-const description = "様々なジャンルの短編小説の世界へようこそ"
+const title = "短編小説一覧";
+const description = "様々なジャンルの短編小説の世界へようこそ";
 ---
+
 <BlogLayout title={title} description={description}>
     <div class="header">
         <h1>{title}</h1>
         <p>{description}</p>
     </div>
-    
+
     <div class="posts-grid">
-        {allPosts.map(post => (
-            <PostCard 
-                title={post.label} 
-                url={post.link} 
-                description={post.description || ""} 
-                date={post.date || ""}
-                image={post.image} 
-            />
-        ))}
+        {
+            allPosts.map((post) => (
+                <PostCard
+                    title={post.label}
+                    url={post.link}
+                    description={post.description || ""}
+                    date={post.date || ""}
+                    image={post.image}
+                />
+            ))
+        }
     </div>
 </BlogLayout>
 
@@ -62,7 +66,7 @@ const description = "様々なジャンルの短編小説の世界へようこ�
     }
     .posts-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
         gap: 2rem;
         padding-bottom: 4rem;
     }

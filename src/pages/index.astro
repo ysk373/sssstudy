@@ -1,42 +1,43 @@
 ---
-import BlogLayout from "@/layout/BlogLayout.astro"
-import PostCard from "@/components/PostCard.astro"
-import { load_json } from "@/libs/utils.js"
-import { config } from "@/config"
+import BlogLayout from "@/layout/BlogLayout.astro";
+import PostCard from "@/components/PostCard.astro";
+import { load_json } from "@/libs/utils.js";
+import { config } from "@/config";
 
-console.log(`index> home page`)
+console.log(`index> home page`);
 
 // Load the generated menu to get the list of posts
-let allPosts = []
+let allPosts = [];
 try {
-    const menu = await load_json(config.collect_content.out_menu)
-    const sections = menu.sections
+    const menu = await load_json(config.collect_content.out_menu);
+    const sections = menu.sections;
 
     const getItems = (items) => {
-        let posts = []
+        let posts = [];
         for (const item of items) {
             // Filter out index pages and non-link items
             // Also explicitly exclude /blog and /stories roots if they appear in the list
-            if (item.link && 
-                !item.link.endsWith('/index') && 
-                !item.link.endsWith('/') &&
-                !item.link.endsWith('/blog') &&
-                !item.link.endsWith('/stories')
-            ) { 
-                 posts.push(item)
+            if (
+                item.link &&
+                !item.link.endsWith("/index") &&
+                !item.link.endsWith("/") &&
+                !item.link.endsWith("/blog") &&
+                !item.link.endsWith("/stories")
+            ) {
+                posts.push(item);
             }
             if (item.items) {
-                posts = posts.concat(getItems(item.items))
+                posts = posts.concat(getItems(item.items));
             }
         }
-        return posts
-    }
+        return posts;
+    };
 
     for (const section in sections) {
-        allPosts = allPosts.concat(getItems(sections[section]))
+        allPosts = allPosts.concat(getItems(sections[section]));
     }
 } catch (e) {
-    console.error("Failed to load menu.json", e)
+    console.error("Failed to load menu.json", e);
 }
 
 // Sort posts? For now, just list them.
@@ -49,57 +50,62 @@ const sections = [
         description: "日々の気付きや技術的なメモ、資産運用の記録など。",
         url: "/blog",
         image: "/images/thumbnails/typography-tips.png", // Representative image
-        tags: ["Blog", "Tech", "Life"]
+        tags: ["Blog", "Tech", "Life"],
     },
     {
         title: "短編小説",
         description: "心躍る物語の世界へ。SF、ミステリー、ファンタジーなど。",
         url: "/stories",
         image: "/images/thumbnails/sample-story.png", // Representative image
-        tags: ["Stories", "Fiction"]
-    }
-]
-
+        tags: ["Stories", "Fiction"],
+    },
+];
 ---
-<BlogLayout title="SSSSブログ - 個人的に気になったことの備忘録" description="個人的に気になったことの備忘録。ブログ運営、資産運用、Web制作など。">
+
+<BlogLayout
+    title="SSSSブログ - 個人的に気になったことの備忘録"
+    description="個人的に気になったことの備忘録。ブログ運営、資産運用、Web制作など。"
+>
     <div class="hero">
         <h1>SSSSブログ</h1>
         <p class="subtitle">個人的に気になったことの備忘録</p>
     </div>
-    
+
     <section class="ad-banner">
-        <div class="ad-placeholder">
-            Banner Ad (728x90)
-        </div>
+        <div class="ad-placeholder">Banner Ad (728x90)</div>
     </section>
 
     <section class="sections-area">
         <h2>Sections</h2>
         <div class="posts-grid">
-            {sections.map(section => (
-                <PostCard 
-                    title={section.title} 
-                    url={section.url} 
-                    description={section.description} 
-                    date=""
-                    image={section.image} 
-                />
-            ))}
+            {
+                sections.map((section) => (
+                    <PostCard
+                        title={section.title}
+                        url={section.url}
+                        description={section.description}
+                        date=""
+                        image={section.image}
+                    />
+                ))
+            }
         </div>
     </section>
 
     <section class="latest-posts">
         <h2>Latest Articles</h2>
         <div class="posts-grid">
-            {allPosts.map(post => (
-                <PostCard 
-                    title={post.label} 
-                    url={post.link} 
-                    description={post.description || "記事を読む..."} 
-                    date={post.date || ""}
-                    image={post.image || "/placeholder-image.jpg"} 
-                />
-            ))}
+            {
+                allPosts.map((post) => (
+                    <PostCard
+                        title={post.label}
+                        url={post.link}
+                        description={post.description || "記事を読む..."}
+                        date={post.date || ""}
+                        image={post.image || "/placeholder-image.jpg"}
+                    />
+                ))
+            }
         </div>
     </section>
 </BlogLayout>
@@ -108,7 +114,11 @@ const sections = [
     .hero {
         text-align: center;
         padding: 4rem 1rem;
-        background: linear-gradient(to bottom, var(--header-bg-color), var(--content-bg-color));
+        background: linear-gradient(
+            to bottom,
+            var(--header-bg-color),
+            var(--content-bg-color)
+        );
         margin-bottom: 2rem;
         border-radius: 0 0 16px 16px;
     }
@@ -124,14 +134,16 @@ const sections = [
         color: #ccc;
     }
 
-    .sections-area, .latest-posts {
+    .sections-area,
+    .latest-posts {
         display: flex;
         flex-direction: column;
         align-items: center;
         margin-bottom: 4rem;
     }
 
-    .sections-area h2, .latest-posts h2 {
+    .sections-area h2,
+    .latest-posts h2 {
         text-align: center;
         margin-bottom: 2rem;
         font-size: 2rem;
@@ -142,7 +154,7 @@ const sections = [
 
     .posts-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
         gap: 2rem;
         width: 100%;
     }
