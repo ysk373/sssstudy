@@ -1,62 +1,66 @@
 ---
-import BlogLayout from "@/layout/BlogLayout.astro"
-import PostCard from "@/components/PostCard.astro"
-import { load_json } from "@/libs/utils.js"
-import { config } from "@/config"
+import BlogLayout from "@/layout/BlogLayout.astro";
+import PostCard from "@/components/PostCard.astro";
+import { load_json } from "@/libs/utils.js";
+import { config } from "@/config";
 
-const menu = await load_json(config.collect_content.out_menu)
+const menu = await load_json(config.collect_content.out_menu);
 
 const getItems = (items) => {
-    let posts = []
+    let posts = [];
     for (const item of items) {
-        if (item.link && 
-            !item.link.endsWith('/index') && 
-            !item.link.endsWith('/')
+        if (
+            item.link &&
+            !item.link.endsWith("/index") &&
+            !item.link.endsWith("/")
         ) {
-             posts.push(item)
+            posts.push(item);
         }
         if (item.items) {
-            posts = posts.concat(getItems(item.items))
+            posts = posts.concat(getItems(item.items));
         }
     }
-    return posts
-}
+    return posts;
+};
 
-let allPosts = []
+let allPosts = [];
 // Assuming 'blog' is the key in sections for blog posts
 if (menu.sections && menu.sections.blog) {
-    allPosts = getItems(menu.sections.blog)
+    allPosts = getItems(menu.sections.blog);
 } else {
     // Fallback: search in all sections if 'blog' key is not direct
     // But usually it matches the folder name
     if (menu.sections) {
-         for (const section in menu.sections) {
-             if (section === 'blog') {
-                 allPosts = getItems(menu.sections[section])
-             }
-         }
+        for (const section in menu.sections) {
+            if (section === "blog") {
+                allPosts = getItems(menu.sections[section]);
+            }
+        }
     }
 }
 
-const title = "ブログ記事一覧"
-const description = "SSSSブログの記事一覧ページ"
+const title = "ブログ記事一覧";
+const description = "SSSSブログの記事一覧ページ";
 ---
+
 <BlogLayout title={title} description={description}>
     <div class="header">
         <h1>{title}</h1>
         <p>{description}</p>
     </div>
-    
+
     <div class="posts-grid">
-        {allPosts.map(post => (
-            <PostCard 
-                title={post.label} 
-                url={post.link} 
-                description={post.description || ""} 
-                date={post.date || ""}
-                image={post.image} 
-            />
-        ))}
+        {
+            allPosts.map((post) => (
+                <PostCard
+                    title={post.label}
+                    url={post.link}
+                    description={post.description || ""}
+                    date={post.date || ""}
+                    image={post.image}
+                />
+            ))
+        }
     </div>
 </BlogLayout>
 
@@ -73,7 +77,7 @@ const description = "SSSSブログの記事一覧ページ"
     }
     .posts-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
         gap: 2rem;
         padding-bottom: 4rem;
     }
