@@ -14,7 +14,7 @@ const { title, description } = Astro.props;
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		{description && <meta name="description" content={description} />}
@@ -46,7 +46,8 @@ const { title, description } = Astro.props;
 				<p>
 					&copy; 2025 SSSSブログ All Rights Reserved. <a
 						href="/admin/login"
-						class="admin-link">管理</a>
+						class="admin-link">管理</a
+					>
 				</p>
 			</footer>
 		</div>
