@@ -157,6 +157,15 @@ const isIndexPage =
         line-height: var(--line-height-base);
     }
 
+    .article-slot :global(.paragraph.text) {
+        max-width: 80ch; /* Reading width */
+        margin-bottom: 1.5em;
+        line-height: var(--line-height-base);
+        font-size: var(--font-size-base);
+        letter-spacing: 0.01em;
+        font-weight: 400;
+    }
+
     .scroll::-webkit-scrollbar {
         width: 1rem;
     }
