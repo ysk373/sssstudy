@@ -1,3 +1,8 @@
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 :root {
   /* Typography - 中央管理されたフォント設定 */
   --font-size-base: 18px;
