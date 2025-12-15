@@ -35,7 +35,7 @@ console.log(
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		<link
@@ -153,6 +153,7 @@ console.log(
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
+		min-width: 0;
 	}
 	/* appbar-nav_content-footer => header, main, footer */
 	header {

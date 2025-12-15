@@ -14,7 +14,7 @@ const { title, description } = Astro.props;
 <html lang="ja">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="generator" content={Astro.generator} />
 		<title>{title}</title>
 		{description && <meta name="description" content={description} />}
@@ -75,6 +75,7 @@ const { title, description } = Astro.props;
 		display: flex;
 		flex-direction: column;
 		height: 100vh;
+		min-width: 0;
 	}
 
 	header {
