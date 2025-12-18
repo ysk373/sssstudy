@@ -4,7 +4,7 @@ description: テンプレートから新しいブログ記事を作成する
 
 1. ユーザーに **記事のタイトル** を尋ねてください (例: "STM32のタイマー割り込み入門")。
 2. 以下のメタデータについてユーザーに確認してください:
-   - **Slug** (例: `stm32-timer-interrupt`。可能であればタイトルから推測してデフォルト値として提示)
+   - **Slug** (例: `stm32-timer-interrupt`。可能であればタイトルから推測してデフォルト値として提示してください)
    - **カテゴリー** (選択肢: `技術解説`, `チュートリアル`, `製品レビュー`, `エッセイ`)
    - **タグ** (カンマ区切り, 例: `DSP, 組み込み, STM32, MATLAB`)
    - **概要 (Description)** (SEO用の短い要約, 最大120文字)
@@ -19,7 +19,7 @@ description: テンプレートから新しいブログ記事を作成する
      slug: "{slug}"
      description: "{description}"
      tags: [{tags_array}]
-     image: "/images/thumbnails/{slug}.png"
+     image: "/images/thumbnails/sample.png"
      features:
        - 特徴1
        - 特徴2
