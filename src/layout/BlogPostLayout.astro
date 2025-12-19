@@ -98,12 +98,13 @@ const isIndexPage =
         overflow-x: hidden; /* Prevent horizontal scroll on mobile */
     }
 
+    /* Fix flexbox overflow issues */
     .appbar-nav_content-footer {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         height: 100vh;
-        min-width: 0; /* Strict constraint */
+        min-width: 0;
     }
 
     /* ... */
@@ -114,18 +115,18 @@ const isIndexPage =
         flex-direction: column;
         height: 80vh;
         width: 100%;
-        min-width: 0; /* Strict constraint */
+        min-width: 0;
     }
 
     .container {
         display: flex;
         flex-direction: row;
         width: 100%;
-        max-width: 98%; /* Push to edges */
+        max-width: 98%;
         margin: 0 auto;
         flex-grow: 1;
-        overflow: hidden; /* Prevent double scrollbars */
-        min-width: 0; /* Strict constraint */
+        overflow: hidden;
+        min-width: 0;
     }
 
     footer {
@@ -143,22 +144,24 @@ const isIndexPage =
         background-color: var(--content-bg-color);
         width: 100%;
         flex-grow: 1;
-        overflow: auto;
+        overflow-y: auto;
+        overflow-x: hidden; /* Important for preventing horizontal scroll */
         padding: 20px 12px;
         scroll-behavior: smooth;
-        min-width: 0; /* Flex item overflow fix */
+        min-width: 0;
     }
 
     .article-slot {
-        max-width: 100%; /* Allow content to widen */
+        max-width: 100%;
         margin: 0 auto;
         font-size: var(--font-size-base);
         line-height: var(--line-height-base);
-        min-width: 0; /* Flex item overflow fix */
+        min-width: 0;
+        overflow-wrap: break-word; /* Prevent long text overflow */
     }
 
     .article-slot :global(.paragraph.text) {
-        max-width: 80ch; /* Reading width */
+        max-width: 80ch;
         margin-bottom: 1.5em;
         line-height: var(--line-height-base);
         font-size: var(--font-size-base);
@@ -166,22 +169,31 @@ const isIndexPage =
         font-weight: 400;
     }
 
-    /* Prevent overflow for images, videos, code blocks, and tables */
+    /* Robust Image Resizing: Ensure ALL images fit within container */
     .article-slot :global(img),
-    .article-slot :global(video) {
-        max-width: 100%;
-        height: auto;
+    .article-slot :global(video),
+    .article-slot :global(figure),
+    .article-slot :global(picture) {
+        max-width: 100% !important;
+        height: auto !important;
+        object-fit: contain;
+        box-sizing: border-box;
     }
 
     .article-slot :global(pre) {
         max-width: 100%;
         overflow-x: auto;
+        white-space: pre-wrap; /* Allow wrapping if needed, or pre for scroll */
+        word-wrap: break-word; /* Fallback */
     }
 
+    /* Force tables to scroll if too wide */
     .article-slot :global(table) {
         display: block;
+        width: 100%;
         max-width: 100%;
         overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
     }
 
     .scroll::-webkit-scrollbar {
@@ -239,6 +251,8 @@ const isIndexPage =
         }
         .content {
             padding: 1rem;
+            width: 100%; /* Ensure content takes full width */
+            box-sizing: border-box; /* Include padding in width */
         }
         /* Ensure sidebar appears at the bottom and takes full width */
         :global(.sidebar) {
