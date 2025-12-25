@@ -12,7 +12,8 @@ const getItems = (items) => {
         if (
             item.link &&
             !item.link.endsWith("/index") &&
-            !item.link.endsWith("/")
+            !item.link.endsWith("/") &&
+            item.link !== "/stories"
         ) {
             posts.push(item);
         }
