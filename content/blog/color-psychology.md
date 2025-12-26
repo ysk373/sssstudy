@@ -1,8 +1,12 @@
 ---
-title: Webデザインと色彩心理学
+title: Webデザインと色彩心理学｜UX向上のための色選び完全ガイド2025
 slug: color-psychology
-description: ユーザー体験を向上させる効果的な色の使い方
-tags: [色彩心理, デザイン心理学, ブランディング]
+description: 色彩心理学に基づくWebデザイン実践ガイド。ブランディング、UI/UX改善、コンバージョン率向上のための色選び、文化的配慮、アクセシビリティまで網羅。
+published_date: 2025-01-10
+author: SSSSブログ編集部
+category: Webデザイン
+tags: [色彩心理, Webデザイン, UI/UX, ブランディング, アクセシビリティ, コンバージョン率]
+keywords: 色彩心理学, Webデザイン, UI, UX, カラーパレット, ブランディング, コントラスト比, アクセシビリティ, WCAG
 image: /images/thumbnails/color-psychology.png
 features:
   - 色が与える心理的影響

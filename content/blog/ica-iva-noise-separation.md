@@ -1,8 +1,12 @@
 ---
 title: 信号処理のマジック：ICAとIVAによるノイズ分離技術を理解する
 slug: ica-iva-noise-separation
-description: 混ざり合った信号から必要な情報を取り出す独立成分分析(ICA)と独立ベクトル分析(IVA)の仕組みをわかりやすく解説します。応用例とPythonによる実装も紹介。
-tags: [信号処理, ICA, IVA, AI技術, データ分析]
+description: ICA（独立成分分析）とIVAによる信号分離技術を解説。カクテルパーティー効果の原理、Pythonによる実装例、DSP応用まで網羅した実践ガイド。
+published_date: 2025-01-15
+author: SSSSブログ編集部
+category: 信号処理
+tags: [信号処理, ICA, IVA, DSP, 機械学習, Python, 音声処理, ノイズ除去]
+keywords: ICA, 独立成分分析, IVA, 信号分離, カクテルパーティー効果, DSP, デジタル信号処理, Python, 音声処理, ノイズ除去
 image: /images/thumbnails/ica-iva-noise-separation.png
 features:
   - カクテルパーティー効果の科学的解説

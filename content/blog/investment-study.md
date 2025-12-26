@@ -1,8 +1,12 @@
 ---
-title: 世界一わかりやすい株の仕組み（ケーキ屋さんの物語）
+title: 世界一わかりやすい株の仕組み（ケーキ屋さんの物語）｜株式投資入門2025
 slug: investment-study
-description: ケーキ屋さんの例え話で学ぶ、株式投資、投資信託、NISAの仕組み。
-tags: [株, 投資, NISA, 初心者向け]
+description: 株式投資、投資信託、NISAの仕組みをケーキ屋さんの例え話で完全理解。初心者でも安心して始められる資産運用の基礎知識を図解付きで分かりやすく解説。
+published_date: 2025-01-05
+author: SSSSブログ編集部
+category: 投資・資産運用
+tags: [株式投資, 投資信託, NISA, 新NISA, 資産運用, 初心者向け, 投資入門]
+keywords: 株式投資, 投資信託, NISA, 新NISA, 株の仕組み, 資産運用, 投資初心者, 株式市場, 配当金
 image: /images/investment_study/what_is_stock.jpg
 ---
 

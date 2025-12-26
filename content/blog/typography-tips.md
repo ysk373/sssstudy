@@ -1,8 +1,12 @@
 ---
-title: ウェブサイトのタイポグラフィ改善術
+title: ウェブサイトのタイポグラフィ改善術｜読みやすさとUXを向上させる7つの法則
 slug: typography-tips
-description: 読みやすく美しいタイポグラフィのための7つのヒント
-tags: [タイポグラフィ, ウェブデザイン, 読みやすさ]
+description: Webサイトの読みやすさを劇的に改善するタイポグラフィ設計の実践ガイド。フォント選定、行間調整、レスポンシブ対応、アクセシビリティまで完全網羅。
+published_date: 2024-12-15
+author: SSSSブログ編集部
+category: Webデザイン
+tags: [タイポグラフィ, Webデザイン, UI/UX, フォント, 読みやすさ, アクセシビリティ, レスポンシブ]
+keywords: タイポグラフィ, Webフォント, 読みやすさ, 行間, 文字間隔, レスポンシブデザイン, アクセシビリティ, フォント選定
 content_type: blog
 image: /images/thumbnails/typography-tips.png
 features:
