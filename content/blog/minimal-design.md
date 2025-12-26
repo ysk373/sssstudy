@@ -1,8 +1,12 @@
 ---
-title: ミニマルデザインの基本原則
+title: ミニマルデザインの基本原則｜シンプルで効果的なUI/UX設計ガイド
 slug: minimal-design
-description: シンプルで効果的なデザインを作るための5つの原則
-tags: [デザイン, ミニマリズム, UX]
+description: ミニマルデザインの5つの基本原則を実例付きで解説。余白、タイポグラフィ、カラーパレットの使い方から、ユーザビリティ向上のテクニックまで網羅した実践ガイド。
+published_date: 2024-12-20
+author: SSSSブログ編集部
+category: Webデザイン
+tags: [ミニマルデザイン, UI/UX, Webデザイン, タイポグラフィ, ユーザビリティ, レスポンシブデザイン]
+keywords: ミニマルデザイン, シンプルデザイン, UI, UX, ホワイトスペース, 余白, タイポグラフィ, ユーザビリティ
 image: /images/thumbnails/minimal-design.png
 features:
   - 読みやすさを重視
