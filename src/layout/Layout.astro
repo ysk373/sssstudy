@@ -1,6 +1,7 @@
 ---
 import "./colors.css";
 import AppBar from "./AppBar.astro";
+import Footer from "@/components/Footer.astro";
 import Cache from "./Cache.astro";
 import SideMenu from "./SideMenu.astro";
 import ClientNavMenu from "./ClientNavMenu.astro";
@@ -117,18 +118,7 @@ console.log(
 					}
 				</div>
 			</main>
-			<footer>
-				<p>
-					&copy; 2025 SSSSブログ All Rights Reserved.
-				</p>
-				<p class="footer-links">
-					<a href="/privacy">プライバシーポリシー</a> |
-					<a href="/disclaimer">免責事項</a> |
-					<a href="/terms">利用規約</a> |
-					<a href="/contact">お問い合わせ</a> |
-					<a href="/admin/login" class="admin-link">管理</a>
-				</p>
-			</footer>
+			<Footer />
 		</div>
 		<div
 			id="fixed-right"
@@ -205,25 +195,6 @@ console.log(
 		flex-grow: 1;
 	}
 
-	footer p {
-		margin: 6px;
-	}
-
-	footer .footer-links {
-		font-size: 0.85em;
-		color: var(--text-color-secondary, #666);
-	}
-
-	footer .footer-links a {
-		color: var(--text-color-secondary, #666);
-		text-decoration: none;
-		padding: 0 0.5em;
-	}
-
-	footer .footer-links a:hover {
-		text-decoration: underline;
-		color: var(--front-blue, #0066cc);
-	}
 
 	.fixed-nav {
 		width: 3em;
