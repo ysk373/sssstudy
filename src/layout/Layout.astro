@@ -119,10 +119,14 @@ console.log(
 			</main>
 			<footer>
 				<p>
-					&copy; 2025 SSSSブログ All Rights Reserved. <a
-						href="/admin/login"
-						class="admin-link">管理</a
-					>
+					&copy; 2025 SSSSブログ All Rights Reserved.
+				</p>
+				<p class="footer-links">
+					<a href="/privacy">プライバシーポリシー</a> |
+					<a href="/disclaimer">免責事項</a> |
+					<a href="/terms">利用規約</a> |
+					<a href="/contact">お問い合わせ</a> |
+					<a href="/admin/login" class="admin-link">管理</a>
 				</p>
 			</footer>
 		</div>
@@ -203,6 +207,22 @@ console.log(
 
 	footer p {
 		margin: 6px;
+	}
+
+	footer .footer-links {
+		font-size: 0.85em;
+		color: var(--text-color-secondary, #666);
+	}
+
+	footer .footer-links a {
+		color: var(--text-color-secondary, #666);
+		text-decoration: none;
+		padding: 0 0.5em;
+	}
+
+	footer .footer-links a:hover {
+		text-decoration: underline;
+		color: var(--front-blue, #0066cc);
 	}
 
 	.fixed-nav {
