@@ -179,6 +179,38 @@ const isIndexPage =
         overflow-x: auto;
     }
 
+    /* List styling for consistent spacing */
+    .article-slot :global(ul),
+    .article-slot :global(ol) {
+        margin: 1em 0;
+        padding-left: 2em;
+        line-height: var(--line-height-base);
+    }
+
+    .article-slot :global(li) {
+        margin-bottom: 0.5em;
+    }
+
+    .article-slot :global(li):last-child {
+        margin-bottom: 0;
+    }
+
+    /* Adjust margin for paragraphs inside list items */
+    .article-slot :global(li > p) {
+        margin-bottom: 0.5em;
+    }
+
+    .article-slot :global(li > p):last-child {
+        margin-bottom: 0;
+    }
+
+    /* Nested lists */
+    .article-slot :global(li > ul),
+    .article-slot :global(li > ol) {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
+
     /* Force tables to scroll if too wide */
     .article-slot :global(table) {
         display: block;
