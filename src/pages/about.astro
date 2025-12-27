@@ -1,0 +1,97 @@
+---
+import BlogLayout from "@/layout/BlogLayout.astro";
+---
+
+<BlogLayout
+	title="プロフィール｜SSS Blog"
+	description="SSS Blogの運営者情報とサイトについてのご紹介"
+>
+	<div class="page-container">
+		<h1>プロフィール</h1>
+
+		<section class="about-section">
+			<h2>SSS Blogについて</h2>
+			<p>
+				SSS Blogは、組み込みシステムエンジニアやDSP開発者、自動車業界の技術者向けに、
+				技術情報や実践的なノウハウを発信する個人技術ブログです。
+			</p>
+			<p>
+				信号処理、組み込みシステム、マイコン開発などの専門的な内容から、
+				Webデザイン、資産運用まで、幅広いトピックを扱っています。
+			</p>
+		</section>
+
+		<section class="about-section">
+			<h2>運営者について</h2>
+			<p>
+				組み込みシステム開発に携わるエンジニアとして、日々の学びや気付きを記録・共有しています。
+				特にデジタル信号処理（DSP）、マイコン開発、車載システムに関心を持っています。
+			</p>
+		</section>
+
+		<section class="about-section">
+			<h2>コンテンツポリシー</h2>
+			<ul>
+				<li>技術的な正確性を最優先にした記事作成</li>
+				<li>実践的で役立つ情報の提供</li>
+				<li>初心者にも理解しやすい丁寧な解説</li>
+				<li>最新の技術動向のキャッチアップ</li>
+			</ul>
+		</section>
+
+		<section class="about-section">
+			<h2>お問い合わせ</h2>
+			<p>
+				ご質問、ご意見、お仕事のご依頼などは<a href="/contact">お問い合わせページ</a>よりご連絡ください。
+			</p>
+		</section>
+	</div>
+</BlogLayout>
+
+<style>
+	.page-container {
+		max-width: 800px;
+		margin: 0 auto;
+		padding: 2rem 1rem;
+	}
+
+	h1 {
+		font-size: 2.5rem;
+		margin-bottom: 2rem;
+		color: var(--color-text-primary);
+		border-bottom: 3px solid var(--color-primary);
+		padding-bottom: 0.5rem;
+	}
+
+	.about-section {
+		margin-bottom: 3rem;
+	}
+
+	.about-section h2 {
+		font-size: 1.8rem;
+		margin-bottom: 1rem;
+		color: var(--color-text-primary);
+	}
+
+	.about-section p {
+		line-height: 1.8;
+		margin-bottom: 1rem;
+		color: var(--color-text-secondary);
+	}
+
+	.about-section ul {
+		list-style: disc;
+		margin-left: 2rem;
+		line-height: 1.8;
+		color: var(--color-text-secondary);
+	}
+
+	.about-section a {
+		color: var(--color-primary);
+		text-decoration: underline;
+	}
+
+	.about-section a:hover {
+		color: var(--color-primary-dark);
+	}
+</style>
