@@ -23,7 +23,11 @@ STM32は、STMicroelectronics社が提供するARM Cortex-Mコアを搭載した
 
 ## STM32マイコンの基本
 
+---
+
 ### STM32ファミリーの概要
+
+---
 
 STM32は、用途に応じて複数のシリーズが提供されています：
 
@@ -38,6 +42,8 @@ STM32は、用途に応じて複数のシリーズが提供されています：
 
 ### STM32の主な特徴
 
+---
+
 1. **豊富なペリフェラル**: UART、SPI、I2C、ADC、DAC、タイマーなど
 2. **高性能**: ARM Cortex-Mコアによる高速処理
 3. **低消費電力**: スリープモード、ストップモードなど複数の省電力モード
@@ -45,13 +51,19 @@ STM32は、用途に応じて複数のシリーズが提供されています：
 
 ## 開発環境のセットアップ
 
+---
+
 ### 必要なツール
+
+---
 
 1. **STM32CubeMX**: ペリフェラル設定とコード生成ツール
 2. **STM32CubeIDE**: 統合開発環境（Eclipse based）
 3. **ST-Link**: デバッガ/プログラマ
 
 ### プロジェクトの作成
+
+---
 
 ```bash
 # STM32CubeMXでプロジェクトを作成
@@ -63,9 +75,13 @@ STM32は、用途に応じて複数のシリーズが提供されています：
 
 ## GPIO制御の基礎
 
+---
+
 GPIOは、マイコンと外部デバイスを接続する基本的なインターフェースです。
 
 ### GPIOの初期化
+
+---
 
 STM32 HAL（Hardware Abstraction Layer）を使ったGPIO初期化の例：
 
@@ -91,6 +107,8 @@ void MX_GPIO_Init(void)
 
 ### GPIOモードの種類
 
+---
+
 ```c
 /* 出力モード */
 GPIO_MODE_OUTPUT_PP  // プッシュプル出力
@@ -107,6 +125,8 @@ GPIO_MODE_AF_PP      // 代替機能プッシュプル
 ```
 
 ### GPIO出力制御
+
+---
 
 ```c
 /* LEDを点灯・消灯する例 */
@@ -135,6 +155,8 @@ void LED_Toggle(void)
 
 ### GPIO入力読み取り
 
+---
+
 ```c
 /* ボタン入力を読み取る例 */
 void Button_Read(void)
@@ -156,9 +178,13 @@ void Button_Read(void)
 
 ## タイマーの基礎
 
+---
+
 STM32のタイマーは、時間計測、PWM生成、イベントカウントなど多様な用途に使えます。
 
 ### タイマーの種類
+
+---
 
 | タイマー | ビット数 | 特徴 |
 |---------|---------|------|
@@ -168,6 +194,8 @@ STM32のタイマーは、時間計測、PWM生成、イベントカウントな
 | TIM9-TIM14 | 16-bit | 汎用タイマー（簡易版） |
 
 ### タイマーの基本設定
+
+---
 
 ```c
 /* TIM2の基本設定例（1秒間隔） */
@@ -195,6 +223,8 @@ void MX_TIM2_Init(void)
 
 ### タイマー計算の公式
 
+---
+
 ```
 タイマー周期 = (Prescaler + 1) × (Period + 1) / タイマークロック周波数
 
@@ -207,6 +237,8 @@ void MX_TIM2_Init(void)
 ```
 
 ### PWM出力の設定
+
+---
 
 ```c
 /* PWM出力の設定例 */
@@ -245,9 +277,13 @@ void Set_PWM_DutyCycle(uint16_t duty)
 
 ## 割り込み処理
 
+---
+
 割り込みは、外部イベントや内部タイマーによってプログラムの実行を一時停止し、特定の処理を実行する仕組みです。
 
 ### GPIO外部割り込みの設定
+
+---
 
 ```c
 /* ボタン押下時の割り込み設定 */
@@ -288,6 +324,8 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 
 ### タイマー割り込みの設定
 
+---
+
 ```c
 /* タイマー割り込みの設定 */
 void MX_TIM2_IT_Init(void)
@@ -327,6 +365,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 ```
 
 ## 実践例：Lチカ＋ボタン＋タイマー
+
+---
 
 これまでの知識を統合した実践例です。
 
@@ -430,7 +470,11 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
 
 ## デバッグのヒント
 
+---
+
 ### シリアル出力によるデバッグ
+
+---
 
 ```c
 /* UART経由でデバッグ情報を出力 */
@@ -444,6 +488,8 @@ Debug_Print("Timer interrupt occurred\r\n");
 ```
 
 ### SWV（Serial Wire Viewer）を使ったデバッグ
+
+---
 
 ```c
 /* printf関数をSWOにリダイレクト */
@@ -462,6 +508,8 @@ printf("LED Blink Interval: %lu ms\r\n", led_blink_interval);
 
 ## まとめ
 
+---
+
 STM32マイコンの基礎から実践まで、以下のポイントを学びました：
 
 1. **GPIO制御**: 入出力の基本、初期化、読み書き
@@ -473,10 +521,18 @@ STM32マイコンの基礎から実践まで、以下のポイントを学びま
 
 ## 参考リソース
 
+---
+
 ### 公式ドキュメント
+
+---
+
 - STM32CubeMXユーザーマニュアル: https://www.st.com/resource/en/user_manual/um1718-stm32cubemx-for-stm32-configuration-and-initialization-c-code-generation-stmicroelectronics.pdf
 - STM32F4 HALドライバー: https://www.st.com/resource/en/user_manual/um1725-description-of-stm32f4-hal-and-lowlayer-drivers-stmicroelectronics.pdf
 
 ### チュートリアル・コミュニティ
+
+---
+
 - STM32公式フォーラム: https://community.st.com/
 - ControllersTech: https://controllerstech.com/

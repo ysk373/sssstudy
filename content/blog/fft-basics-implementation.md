@@ -23,7 +23,11 @@ FFT（Fast Fourier Transform：高速フーリエ変換）は、信号処理に�
 
 ## フーリエ変換とは
 
+---
+
 ### 時間領域と周波数領域
+
+---
 
 信号は、時間領域と周波数領域の2つの視点で表現できます。
 
@@ -33,6 +37,8 @@ FFT（Fast Fourier Transform：高速フーリエ変換）は、信号処理に�
 フーリエ変換は、時間領域の信号を周波数領域に変換する数学的な操作です。
 
 ### 連続フーリエ変換（CFT）
+
+---
 
 連続的な信号 x(t) に対するフーリエ変換：
 
@@ -46,6 +52,8 @@ X(f) = ∫ x(t) e^(-j2πft) dt
 - j: 虚数単位
 
 ### 離散フーリエ変換（DFT）
+
+---
 
 実際のコンピューターでは、離散的なサンプル点で信号を扱います。N点の離散信号 x[n] に対するDFTは：
 
@@ -61,7 +69,11 @@ X[k] = Σ(n=0 to N-1) x[n] e^(-j2πkn/N)
 
 ## FFTの登場：計算量の劇的な削減
 
+---
+
 ### DFTの問題点
+
+---
 
 DFTの計算量 O(N²) は、サンプル数が増えると実用的でなくなります：
 
@@ -70,6 +82,8 @@ DFTの計算量 O(N²) は、サンプル数が増えると実用的でなくな
 - N = 65536: 約43億回の計算
 
 ### FFTアルゴリズムの効率性
+
+---
 
 FFT（高速フーリエ変換）は、DFTを効率的に計算するアルゴリズムです。
 
@@ -81,6 +95,8 @@ FFT（高速フーリエ変換）は、DFTを効率的に計算するアルゴ�
 
 ### Cooley-Tukeyアルゴリズム
 
+---
+
 最も有名なFFTアルゴリズムは、Cooley-Tukey法です。基本的なアイデアは「分割統治法」：
 
 1. N点のDFTを、N/2点のDFT 2つに分割
@@ -91,7 +107,11 @@ FFT（高速フーリエ変換）は、DFTを効率的に計算するアルゴ�
 
 ## Pythonによる実装
 
+---
+
 ### NumPyを使った基本的な使用例
+
+---
 
 ```python
 import numpy as np
@@ -141,6 +161,8 @@ plt.show()
 ```
 
 ### FFTの主要な性質
+
+---
 
 #### 1. 対称性
 
@@ -211,6 +233,8 @@ plt.show()
 
 ## 短時間フーリエ変換（STFT）
 
+---
+
 時間とともに変化する信号を分析するため、短い時間窓でFFTを繰り返し実行します。
 
 ```python
@@ -236,7 +260,11 @@ plt.show()
 
 ## 実践的な応用例
 
+---
+
 ### 1. ノイズ除去
+
+---
 
 ```python
 # ノイズを含む信号の作成
@@ -284,6 +312,8 @@ plt.show()
 
 ### 2. 音声のピッチ検出
 
+---
+
 ```python
 import librosa
 import librosa.display
@@ -315,6 +345,8 @@ print(f"Average pitch: {np.mean(pitch_values):.2f} Hz")
 ```
 
 ### 3. 画像の周波数解析
+
+---
 
 ```python
 from PIL import Image
@@ -348,7 +380,11 @@ plt.show()
 
 ## FFTの最適化テクニック
 
+---
+
 ### 1. ゼロパディング
+
+---
 
 サンプル数を2のべき乗に調整することで、FFTの効率を最大化：
 
@@ -371,6 +407,8 @@ print(f"Padded length: {len(x_padded)}")
 
 ### 2. リアルFFT（RFFT）
 
+---
+
 実数信号の場合、`rfft`を使うことで計算量とメモリを半減：
 
 ```python
@@ -386,6 +424,8 @@ print(f"Real FFT length: {len(X_half)}")  # 半分＋1
 ```
 
 ### 3. FFTW（Fastest Fourier Transform in the West）
+
+---
 
 さらなる高速化には、`pyFFTW`ライブラリを使用：
 
@@ -405,6 +445,8 @@ b = fft_object()
 
 ## まとめ
 
+---
+
 FFTは信号処理における基盤技術であり、以下のポイントを理解しておくことが重要です：
 
 1. **原理**: DFTを O(N log N) で計算する効率的なアルゴリズム
@@ -416,11 +458,19 @@ FFTの理解により、リアルタイム信号処理、スペクトル分析�
 
 ## 参考リソース
 
+---
+
 ### ライブラリ・ツール
+
+---
+
 - NumPy FFT: https://numpy.org/doc/stable/reference/routines.fft.html
 - SciPy Signal Processing: https://docs.scipy.org/doc/scipy/reference/signal.html
 - Librosa (音声処理): https://librosa.org/
 
 ### 参考文献
+
+---
+
 - "Understanding Digital Signal Processing" by Richard G. Lyons
 - "The Scientist and Engineer's Guide to Digital Signal Processing" by Steven W. Smith

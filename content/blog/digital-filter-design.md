@@ -23,9 +23,13 @@ features:
 
 ## デジタルフィルタとは
 
+---
+
 デジタルフィルタは、デジタル信号から特定の周波数成分を抽出または除去する演算処理です。
 
 ### フィルタの種類（周波数特性による分類）
+
+---
 
 1. **ローパスフィルタ（LPF）**: 低周波成分を通過、高周波成分を減衰
 2. **ハイパスフィルタ（HPF）**: 高周波成分を通過、低周波成分を減衰
@@ -33,6 +37,8 @@ features:
 4. **バンドストップフィルタ（BSF）**: 特定の周波数帯域を減衰（ノッチフィルタ）
 
 ### アナログフィルタとの違い
+
+---
 
 | 特性 | アナログフィルタ | デジタルフィルタ |
 |-----|---------------|----------------|
@@ -44,9 +50,13 @@ features:
 
 ## FIRフィルタとIIRフィルタ
 
+---
+
 デジタルフィルタには、大きく分けて2種類あります。
 
 ### FIR（Finite Impulse Response）フィルタ
+
+---
 
 **特徴**: 有限長のインパルス応答
 
@@ -66,6 +76,8 @@ y[n] = b[0]*x[n] + b[1]*x[n-1] + b[2]*x[n-2] + ... + b[M]*x[n-M]
 
 ### IIR（Infinite Impulse Response）フィルタ
 
+---
+
 **特徴**: 無限長のインパルス応答、フィードバック構造
 
 ```python
@@ -84,6 +96,8 @@ y[n] = b[0]*x[n] + b[1]*x[n-1] + ... + b[M]*x[n-M]
 
 ### どちらを選ぶべきか
 
+---
+
 | 用途 | 推奨フィルタ | 理由 |
 |-----|-------------|------|
 | 音声処理 | FIR | 線形位相が重要 |
@@ -93,7 +107,11 @@ y[n] = b[0]*x[n] + b[1]*x[n-1] + ... + b[M]*x[n-M]
 
 ## Pythonによるフィルタ設計と実装
 
+---
+
 ### 1. FIRフィルタの設計
+
+---
 
 #### 窓関数法
 
@@ -169,6 +187,8 @@ plt.show()
 ```
 
 ### 2. IIRフィルタの設計
+
+---
 
 #### バターワースフィルタ
 
@@ -262,7 +282,11 @@ plt.show()
 
 ## フィルタの適用
 
+---
+
 ### テスト信号の生成
+
+---
 
 ```python
 # テスト信号: 50Hz + 200Hz + ノイズ
@@ -279,6 +303,8 @@ test_signal = signal_low + signal_high + noise
 ```
 
 ### FIRフィルタの適用
+
+---
 
 ```python
 # FIRローパスフィルタ（カットオフ: 100Hz）
@@ -313,6 +339,8 @@ plt.show()
 ```
 
 ### IIRフィルタの適用
+
+---
 
 ```python
 # IIRローパスフィルタ（4次バターワース、カットオフ: 100Hz）
@@ -355,7 +383,11 @@ plt.show()
 
 ## リアルタイム処理への応用
 
+---
+
 ### ストリーミング信号の処理
+
+---
 
 ```python
 class RealtimeFilter:
@@ -400,6 +432,8 @@ for i in range(0, len(test_signal), chunk_size):
 ```
 
 ### バンドパスフィルタの実装例
+
+---
 
 ```python
 # 100-150Hzのバンドパスフィルタ
@@ -450,6 +484,8 @@ plt.show()
 
 ## まとめ
 
+---
+
 デジタルフィルタの設計と実装において、以下のポイントが重要です：
 
 1. **FIR vs IIR**: 用途に応じた適切な選択
@@ -473,11 +509,19 @@ plt.show()
 
 ## 参考リソース
 
+---
+
 ### ライブラリ・ツール
+
+---
+
 - SciPy Signal Processing: https://docs.scipy.org/doc/scipy/reference/signal.html
 - NumPy: https://numpy.org/doc/
 - Matplotlib: https://matplotlib.org/
 
 ### 参考文献
+
+---
+
 - "Digital Signal Processing" by John G. Proakis and Dimitris G. Manolakis
 - "The Scientist and Engineer's Guide to Digital Signal Processing" by Steven W. Smith
